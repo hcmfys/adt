@@ -82,7 +82,7 @@ public class Prime {
         // 对因子求模
         a %= base;
         int res = 1;
-        for (int _ = 0; _ < k; _++) {
+        for (int x = 0; x < k; x++) {
             // 这里有乘法，是潜在的溢出点
             res *= a;
             // 对乘法结果求模
