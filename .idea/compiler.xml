@@ -7,12 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="adt" />
-        <module name="hd-decorate-logistics" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="adt" target="1.5" />
-      <module name="hd-decorate-logistics" target="1.5" />
+      <module name="adt" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
