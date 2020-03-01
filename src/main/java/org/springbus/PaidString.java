@@ -3,6 +3,9 @@ package org.springbus;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 如何寻找最长回文子串
+ */
 public class PaidString {
 
     /**
