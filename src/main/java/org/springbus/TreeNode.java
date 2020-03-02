@@ -4,7 +4,9 @@ package org.springbus;
 import lombok.Data;
 
 @Data
+
 public class TreeNode {
+
 
     /***
      * 1、路径：也就是已经做出的选择。
@@ -14,8 +16,17 @@ public class TreeNode {
      * 我们后面会用「全排列」和「N 皇后问题」这两个经典的回溯算法问题来帮你理解这些词语是什么意思，
      * 现在你先留着印象。
      */
-    private TreeNode left;
-    private TreeNode right;
-    private int val;
+
+    public TreeNode(){}
+    public  TreeNode(int val) {
+        this.val = val;
+    }
+    public TreeNode left;
+    public TreeNode right;
+    public int val;
+    @Override
+     public  String toString(){
+        return "["+this.val+"]";
+    }
 
 }
