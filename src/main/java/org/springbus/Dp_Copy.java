@@ -35,7 +35,7 @@ public class Dp_Copy {
     // #对于(n, a_num, copy) 这个状态，
     //  #屏幕上能最终最多能有 dp (n, a_num, copy)个 A
     static int dp(int n, int a_num, int copy) {
-        System.out.println("n="+n +" a-num="+a_num +" b-num="+copy);
+        //System.out.println("n="+n +" a-num="+a_num +" b-num="+copy);
         // #base  case
         if (n <= 0) return a_num;
         //#几种选择全试一遍，选择最大的结果
@@ -48,8 +48,28 @@ public class Dp_Copy {
     }
 
 
+    static    int maxAFinal(int N) {
+        int[] dp = new int[N + 1];
+        dp[0] = 0;
+        for (int i = 1; i <= N; i++) {
+            // 按 A 键
+            dp[i] = dp[i - 1] + 1;
+            for (int j = 2; j < i; j++) {
+                // 全选 & 复制 dp[j-2]，连续粘贴 i - j 次
+                // 屏幕上共 dp[j - 2] * (i - j + 1) 个 A
+                dp[i] = Math.max(dp[i], dp[j - 2] * (i - j + 1));
+            }
+        }
+        // N 次按键之后最多有几个 A？
+        return dp[N];
+    }
+
+
     public static void main(String[] args) {
-      int t=  maxA(10 );
-      System.out.println("t="+t);
+        int t = maxAFinal(10);
+        System.out.println("t=" + t);
+
+        t = maxA(10);
+        System.out.println("t=" + t);
     }
 }
