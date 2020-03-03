@@ -37,7 +37,7 @@ public class TravelTree {
     }
 
     /**
-     * 获取输的深度
+     * 获取树的深度
      * @param root
      * @return
      */
