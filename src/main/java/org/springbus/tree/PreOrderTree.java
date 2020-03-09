@@ -125,7 +125,8 @@ public class PreOrderTree {
                 s.push(top.left);
                 // visit top->left
                 System.out.print(top.left.val + " ");
-            } else if (top.right != null && top.right != last_pop && (top.left == null || top.left == last_pop)) {
+                //top.left == null || top.left == last_pop)
+            } else if (top.right != null && top.right != last_pop) {
                 // push_right
                 s.push(top.right);
                 // visit top->right
@@ -157,8 +158,7 @@ public class PreOrderTree {
             // push_left
             if (top.left != null && top.left != last_pop && top.right != last_pop) {
                 s.push(top.left);
-
-            } else if (top.right != null && top.right != last_pop && (top.left == null || top.left == last_pop)) {
+            } else if (top.right != null && top.right != last_pop) {
                 // push_right
                 s.push(top.right);
                 // visit top->right
@@ -191,7 +191,7 @@ public class PreOrderTree {
             // push_left
             if (top.left != null && top.left != last_pop && top.right != last_pop) {
                 s.push(top.left);
-            } else if (top.right != null && top.right != last_pop && (top.left == null || top.left == last_pop)) {
+            } else if (top.right != null && top.right != last_pop) {
                 // push_right
                 s.push(top.right);
             } else {
