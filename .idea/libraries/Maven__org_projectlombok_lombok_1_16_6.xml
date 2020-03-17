@@ -6,6 +6,7 @@
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.16.6/lombok-1.16.6-javadoc.jar!/" />
     </JAVADOC>
+    <MATHEMATICA_LIBRARY />
     <SOURCES>
       <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.16.6/lombok-1.16.6-sources.jar!/" />
     </SOURCES>

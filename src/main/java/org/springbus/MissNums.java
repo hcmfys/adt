@@ -50,4 +50,5 @@ public class MissNums {
         int lostNum = missingNumberSum(sum);
         System.out.println(lostNum);
     }
+
 }
