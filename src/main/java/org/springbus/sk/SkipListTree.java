@@ -28,6 +28,7 @@ public class SkipListTree<T> {
     n = 0;
     h = 0;
     r = new Random();
+    r.setSeed(System.currentTimeMillis());
   }
 
   /**
@@ -65,7 +66,11 @@ public class SkipListTree<T> {
       if (p.down != null) {
         p = p.down;
         // System.out.println("vvvv " + p.key);
-      } else break; // We reached the LOWEST level... Exit...
+      } else{
+        // We reached the LOWEST level... Exit...
+        break;
+      }
+
     }
 
     return (p); // p.key <= k
@@ -86,6 +91,7 @@ public class SkipListTree<T> {
 
   public Integer insert(int key, int value) {
     SkipListEntry p, q;
+
     int i = 0;
 
     // 查找适合插入的位子
@@ -114,7 +120,7 @@ public class SkipListTree<T> {
 
     // 本层操作完毕，看更高层操作
     // 抛硬币随机决定是否上层插入
-    while (r.nextDouble() < 0.5 /* Coin toss */) {
+    while (r.nextDouble() > 1/Math.E /* Coin toss */) {
       if (i >= h) // We reached the top level !!!
       {
         // Create a new empty TOP layer
@@ -248,7 +254,12 @@ public class SkipListTree<T> {
 
     a = 0;
 
-    s = "" + p.key;
+    if(p.key==Integer.MIN_VALUE) {
+      s = "-∞" ;
+    }else{
+      s = "" + p.key;
+    }
+
     p = p.right;
 
     while (p != null) {
@@ -262,7 +273,11 @@ public class SkipListTree<T> {
 
       for (i = a + 1; i < b; i++) s = s + "--------";
 
-      s = s + "> " + p.key;
+      if (p.key == Integer.MAX_VALUE) {
+        s = s + ">+∞" ;
+      }else{
+        s = s + "> " + p.key;
+      }
 
       a = b;
 
