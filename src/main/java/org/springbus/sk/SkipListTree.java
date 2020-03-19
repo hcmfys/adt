@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class SkipListTree<T> {
 
+  /**
+   * https://blog.csdn.net/bohu83/article/details/83654524
+   */
   //  number of entries in the Skip List
   public int n;
   // height
@@ -14,7 +17,7 @@ public class SkipListTree<T> {
   private SkipListEntry tail;
   // 生成randomLevel用到的概率值
 
-  private Random r;
+  Random r;
 
   public SkipListTree() {
 
@@ -275,10 +278,11 @@ public class SkipListTree<T> {
     Random r = new Random();
     for (int i = 0; i < 10; i++) {
       int tmp = r.nextInt(100);
-      System.out.println("add:" + tmp);
+      //System.out.println("add:" + tmp);
       l.insert(tmp, tmp);
-      l.printHorizontal();
+     // l.printHorizontal();
     }
+    l.printHorizontal();
 
     System.out.println("over");
   }
