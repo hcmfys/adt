@@ -36,6 +36,11 @@ public class SkipListApp {
         return l;
     }
 
+    /**
+     *
+     * @param score
+     * @param data
+     */
     public  void insert(double score, Object data) {
         Skip_Node curNode=new Skip_Node();
         curNode.levelNum= getRandomLevel();
@@ -44,7 +49,7 @@ public class SkipListApp {
         Skip_Node rootNode=root.head;
         for( int i=rootNode.levelNum-1;i>=0;i-- ){
             Skip_Level curLevel= rootNode.level[i];
-            if( curLevel!=null){
+            if( curLevel!=null && rootNode.score<score){
 
             }
         }
