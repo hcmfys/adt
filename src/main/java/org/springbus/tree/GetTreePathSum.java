@@ -1,20 +1,35 @@
 package org.springbus.tree;
 
-import javafx.scene.transform.Rotate;
+import org.junit.Test;
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
 
-public class GetTreePathSum {
+public class GetTreePathSum   {
 
 
-    public  static void treeSum(TreeNode root,int sum) {
 
+  public static boolean treeSum(TreeNode root, int sum) {
+
+    if (root == null) {
+      return sum == 0;
     }
+    sum = sum - root.val;
+    // System.out.println(root.val + " -->" + sum);
+    if (sum == 0) {
+      System.out.println(" exists root path " + root.val);
+      return root.left == null && root.right == null;
+    }
+    return treeSum(root.left, sum) || treeSum(root.right, sum);
+  }
 
-  public static void main(String[] args) {
+  @Test
+  public void run() {
     Integer[] trees = {5, 4, 8, 11, 13, 4, null, 7, 2};
     TreeNode root = TreePrintUtil.makeTree(trees);
-    treeSum(root, 22);
+    boolean isExists = treeSum(root, 22);
+    System.out.println(isExists);
     TreePrintUtil.pirnt(root);
-    }
-}
+  }
+  }
+
+
