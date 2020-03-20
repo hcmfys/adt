@@ -291,10 +291,12 @@ public class SkipListTree<T> {
 
     SkipListTree l = new SkipListTree();
     Random r = new Random();
-    for (int i = 0; i < 10; i++) {
-      int tmp = r.nextInt(100);
+    int a[]={100,20,330,440,98,2330,3339,3339,22220,9033,2283,33382,903,2330,3344,22339,33330,9888,47233,22947,23448};
+    r.setSeed(System.currentTimeMillis());
+    for (int i = 0; i < a.length; i++) {
+      int tmp =i+ i * r.nextInt(100);
       //System.out.println("add:" + tmp);
-      l.insert(tmp, tmp);
+      l.insert(a[i], tmp);
      // l.printHorizontal();
     }
     l.printHorizontal();
