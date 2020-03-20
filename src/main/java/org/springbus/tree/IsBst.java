@@ -107,8 +107,12 @@ public class IsBst {
     node9.setRight(node11);
     node11.setRight(node12);
 
-    BTreePrinter.printNode(root);
+    TreePrintUtil.pirnt(root);
     boolean ok = new IsBst().isValidBST(root);
     System.out.println(ok);
+    Integer arr[]={1,2,3,4,45,7,9,8};
+   TreeNode rootIt= TreePrintUtil.makeTree(arr);
+   TreePrintUtil.pirnt(rootIt);
+
   }
 }
