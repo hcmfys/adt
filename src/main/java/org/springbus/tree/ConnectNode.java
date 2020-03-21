@@ -4,6 +4,13 @@ import org.springbus.Node;
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
 import sun.misc.LRUCache;
+import sun.security.util.Length;
+
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 ////给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：
 ////
@@ -26,24 +33,26 @@ import sun.misc.LRUCache;
 public class ConnectNode {
 
 
-    private  Node lastNode;
-    private  int  lastLevel;
+
+    HashMap<Integer, List<Node>> nodeMap=new HashMap();
     public Node connectNode(Node root,int level) {
         if(root==null) {
             return  null;
         }
-        if(lastNode!=null && level==lastLevel) {
-            lastNode.next=root;
+        if(nodeMap.get(level)==null) {
+            nodeMap.put(level,new ArrayList<>());
         }
+        nodeMap.get(level).add(root);
         System.out.println( root.val +"--->" +level);
-        lastNode=root;
-        lastLevel=level;
+
+
         if(root.left!=null) {
             connectNode(root.left, level+1);
         }
         if(root.right!=null) {
             connectNode(root.right, level + 1);
         }
+
 
         return root;
     }
@@ -52,6 +61,19 @@ public class ConnectNode {
             return  null;
         }
         connectNode(root,1);
+        Iterator<Integer> keys= nodeMap.keySet().iterator();
+        while(keys.hasNext()) {
+            Integer lv=  keys.next();
+            List<Node>  nodeList=nodeMap.get(lv);
+            if(nodeList.size()>0) {
+                Node lastNode=nodeList.get(0);
+                for (int i = 1; i < nodeList.size(); i++) {
+                    Node nextNode = nodeList.get(i);
+                    lastNode.next=nextNode;
+                    lastNode=nextNode;
+                }
+            }
+        }
         return root;
     }
 
