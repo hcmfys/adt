@@ -55,4 +55,35 @@ public class TreePrintUtil {
     }
     return treeNodeList[0];
   }
+
+  /**
+   *
+   * @param arr
+   * @return
+   */
+  public static  Node makeTreeNode(Integer arr[]) {
+
+    Node[] treeNodeList = new Node[arr.length];
+    for (int i = 0; i < arr.length; i++) {
+
+      if (arr[i] != null) {
+        treeNodeList[i] = new Node(arr[i]);
+      } else {
+        treeNodeList[i] = null;
+      }
+    }
+    for (int i = 0; i < arr.length / 2; i++) {
+      int idx = (int) 2 * i;
+      Node node = treeNodeList[i];
+      if (node != null) {
+        if (idx + 1 <= arr.length - 1) {
+          node.setLeft( treeNodeList[idx + 1]);
+        }
+        if (idx + 2 <= arr.length - 1) {
+          node.setRight( treeNodeList[idx + 2]);
+        }
+      }
+    }
+    return treeNodeList[0];
+  }
 }

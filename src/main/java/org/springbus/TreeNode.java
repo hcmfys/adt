@@ -23,6 +23,7 @@ public class TreeNode {
     }
     public TreeNode left;
     public TreeNode right;
+    public TreeNode next;
     public int val;
 
     public TreeNode(int value, TreeNode left, TreeNode right) {
@@ -54,5 +55,16 @@ public class TreeNode {
         return new TreeNode(value, null, null);
     }
 
+
+
+
+
+
+    public TreeNode(int _val, TreeNode _left, TreeNode _right, TreeNode _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
 
 }
