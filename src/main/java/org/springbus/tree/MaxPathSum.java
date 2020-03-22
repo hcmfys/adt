@@ -15,6 +15,7 @@ package org.springbus.tree;
 //
 //输出: 6
 //
+
 //
 // 示例 2:
 //
@@ -32,23 +33,51 @@ package org.springbus.tree;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
+import org.springbus.Queue;
 import org.springbus.TreeNode;
+import org.springbus.TreePrintUtil;
+import sun.reflect.generics.tree.Tree;
+
+import javax.swing.text.rtf.RTFEditorKit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
+ * Definition for a binary tree node. public class TreeNode { int val; TreeNode left; TreeNode
+ * right; TreeNode(int x) { val = x; } }
  */
-
-
 public class MaxPathSum {
 
-    public int maxPathSum(TreeNode root) {
+  int mx = Integer.MIN_VALUE;
 
-        return  0;
+  public int maxPathSum(TreeNode r) {
+    maxPath( r);
+    return mx;
+  }
+
+  public int maxPath(TreeNode root) {
+
+    if (root == null) {
+      return 0;
     }
+    int l = Math.max(0, maxPath(root.left));
+    int m = Math.max(0, maxPath(root.right));
+    int t = l + m + root.val;
+    mx = Math.max(mx, t);
+    return root.val + Math.max(l, m);
+  }
+
+  public static void main(String[] args) {
+
+    Integer arrList[] = {-10, 9, 20, null, null, 15, 7};
+    //  arrList=new Integer[]{1,2,3};
+     //arrList=new Integer[]{-2,1};
+    //arrList=new Integer[]{2,-1};
+    TreeNode root = TreePrintUtil.makeTree(arrList);
+    int l = new MaxPathSum().maxPathSum(root);
+    System.out.println("max l=" + l);
+    TreePrintUtil.pirnt(root);
+  }
 }
