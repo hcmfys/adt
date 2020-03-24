@@ -43,7 +43,7 @@ public class RobTree {
 
     private  int max=0;
 
-    public  int  dfs(TreeNode root,int num) {
+    public  int  dfs(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -51,14 +51,16 @@ public class RobTree {
             return root.val;
         }
         int a = root.val;
-        int b = dfs(root.left, num);
-        int c = dfs(root.right, num);
-        return Math.max(a, b + c);
+        int b = dfs(root.left);
+        int c = dfs(root.right);
+        max=
+          Math.max(a, b + c);
+        return  max;
     }
 
 
     public int rob(TreeNode root) {
-          dfs(root,0);
+          dfs(root);
           return  max;
     }
 
