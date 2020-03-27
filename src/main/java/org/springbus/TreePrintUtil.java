@@ -53,6 +53,7 @@ public class TreePrintUtil {
         }
       }
     }
+    treeNodeList[0].nodesList=treeNodeList;
     return treeNodeList[0];
   }
 
