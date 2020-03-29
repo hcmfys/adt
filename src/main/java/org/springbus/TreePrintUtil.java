@@ -2,6 +2,8 @@ package org.springbus;
 
 import org.springbus.treePrint.tech.vanyo.treePrinter.TreePrinter;
 
+import javax.swing.text.rtf.RTFEditorKit;
+import java.security.acl.LastOwnerException;
 import java.util.*;
 
 public class TreePrintUtil {
@@ -87,4 +89,39 @@ public class TreePrintUtil {
     }
     return treeNodeList[0];
   }
+
+  /**
+   * make list node
+   * @param arr
+   * @return
+   */
+  public static ListNode makeListNode(Integer arr[]) {
+    ListNode root=new ListNode(arr[0]);
+    ListNode lastNode=root;
+    for (int i = 1; i < arr.length ; i++) {
+      ListNode node = new ListNode(arr[i]);
+      lastNode.next = node;
+      lastNode = node;
+    }
+    return root;
+  }
+
+  /**
+   *
+   * @param root
+   */
+  public static  void printListNode(ListNode root) {
+
+    ListNode node=root;
+    for(;;) {
+      if(node!=null){
+        System.out.print( node.val +"->");
+        node=node.next;
+      }else{
+        break;
+      }
+    }
+    System.out.println("null");
+  }
+
 }
