@@ -108,6 +108,36 @@ public class RomalToInt {
         return rets;
     }
 
+    public int romanToInt2(String s) {
+        int sum = 0;
+        int preNum = getValue(s.charAt(0));
+        for(int i = 1;i < s.length(); i ++) {
+            int num = getValue(s.charAt(i));
+            if(preNum < num) {
+                sum -= preNum;
+            } else {
+                sum += preNum;
+            }
+            preNum = num;
+        }
+        sum += preNum;
+        return sum;
+    }
+
+    private int getValue(char ch) {
+        switch(ch) {
+            case 'I': return 1;
+            case 'V': return 5;
+            case 'X': return 10;
+            case 'L': return 50;
+            case 'C': return 100;
+            case 'D': return 500;
+            case 'M': return 1000;
+            default: return 0;
+        }
+    }
+
+
     /**
      * 于是，“将整数转换为罗马数字”的过程，就是用上面这张表中右边的数字作为“加法因子”去分解一个整数，
      * 目的是“分解的整数个数”尽可能少，因此，对于这道问题，类似于用最少的纸币凑成一个整数，贪心算法的规则如下：
@@ -150,7 +180,7 @@ public class RomalToInt {
         System.out.println(a);
         String r = new RomalToInt().intToRoman(58);
         System.out.println(r);
-        r = new RomalToInt().intToRoman(1994);
+        r = new RomalToInt().intToRoman(8);
         System.out.println(r);
 
     }
