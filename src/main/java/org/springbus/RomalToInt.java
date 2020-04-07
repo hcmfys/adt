@@ -178,10 +178,23 @@ public class RomalToInt {
 
         a = new RomalToInt().romanToInt("LVIII");
         System.out.println(a);
-        String r = new RomalToInt().intToRoman(58);
+        String r = new RomalToInt().intToRoman(9999);
         System.out.println(r);
         r = new RomalToInt().intToRoman(8);
         System.out.println(r);
+        int q=5;
+        int ten=10;
+        int time=0;
+        int rs=0;
+        for (;;) {
+            rs=q-ten;
+            if(rs<0) {
+                break;
+            }
+            q=rs;
+            time++;
+        }
+        System.out.println( time +" -->r="+ q);
 
     }
 
