@@ -108,6 +108,19 @@ public class RomalToInt {
         return rets;
     }
 
+    /**
+     * 于是，“将整数转换为罗马数字”的过程，就是用上面这张表中右边的数字作为“加法因子”去分解一个整数，
+     * 目的是“分解的整数个数”尽可能少，因此，对于这道问题，类似于用最少的纸币凑成一个整数，贪心算法的规则如下：
+     *
+     * 每一步都使用当前较大的罗马数字作为加法因子，最后得到罗马数字表示就是长度最少的。
+     *
+     * 作者：liweiwei1419
+     * 链接：https://leetcode-cn.com/problems/integer-to-roman/solution/tan-xin-suan-fa-by-liweiwei1419/
+     * 来源：力扣（LeetCode）
+     * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     * @param num
+     * @return
+     */
     public String intToRoman(int num) {
         // 把阿拉伯数字与罗马数字可能出现的所有情况和对应关系，放在两个数组中
         // 并且按照阿拉伯数字的大小降序排列，这是贪心选择思想
