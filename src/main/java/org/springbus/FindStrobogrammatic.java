@@ -26,6 +26,9 @@ public class FindStrobogrammatic {
      * @return
      */
     public List<String> findStrobogrammatic(int n) {
+        if(n<=0) {
+            return new ArrayList<>();
+        }
 
         map.put("6", "9");
         map.put("9", "6");
