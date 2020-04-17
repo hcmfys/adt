@@ -50,7 +50,8 @@ public class FindStrobogrammatic {
             }
 
             System.out.println(str  +"  --" +ret2 );
-            if (str.equals(ret2)) {
+            if (str.equals(ret2) && str.charAt(0)!='0') {
+                if(!res.contains(str))
                 res.add(str);
             }
         }
@@ -82,7 +83,7 @@ public class FindStrobogrammatic {
      * @param args
      */
     public  static  void main(String[] args) {
-     List<String> arr=new FindStrobogrammatic().findStrobogrammatic(2);
+     List<String> arr=new FindStrobogrammatic().findStrobogrammatic(3);
      System.out.println( arr);
     }
 
