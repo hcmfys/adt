@@ -55,10 +55,10 @@ public class FindStrobogrammatic {
             }
         }
         if (str.length() == arr.length) {
-            System.out.println(ret);
-            return;
+            //System.out.println(ret);
+
         }
-        for (int i = start; i < arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
 
             if(ret.contains(i+"")) continue;
 
@@ -67,7 +67,7 @@ public class FindStrobogrammatic {
             String t=o+""+arr[i];
             dfs(arr, i + 1,n,t, ret);
             ret.removeLast();
-            str=o;
+           // str=o;
 
         }
 
