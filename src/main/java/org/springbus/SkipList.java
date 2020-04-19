@@ -1,7 +1,6 @@
 package org.springbus;
 
 
-
 import java.util.ArrayList;
 
 public class SkipList {
@@ -9,13 +8,13 @@ public class SkipList {
     private SkipNode header;
 
     public void insert(int val) {
-        if(header==null) {
-            header=new SkipNode(val);
-            int level=1;
-            header.next=null;
-            header.nodes=new ArrayList<>();
+        if (header == null) {
+            header = new SkipNode(val);
+            int level = 1;
+            header.next = null;
+            header.nodes = new ArrayList<>();
             header.nodes.add(header);
-        }else {
+        } else {
             SkipNode node = header;
             int line = node.nodes.size();
             SkipNode targetNode = node;

@@ -45,71 +45,70 @@ import java.util.List;
 
 public class AllTreePathList {
 
-  int mx = Integer.MIN_VALUE;
+    int mx = Integer.MIN_VALUE;
 
-  List<LinkedList<Integer>> numList = new ArrayList<>();
+    List<LinkedList<Integer>> numList = new ArrayList<>();
 
-  public int getAllTreePathList(TreeNode root, LinkedList<Integer> allList) {
+    public static void main(String[] args) {
 
-    if (root == null) {
-      return 0;
-    }
-      if (allList == null) {
-          allList = new LinkedList<>();
-          allList.addLast(root.val);
-      }
-    if (root.left == null && root.right == null) {
-
-      System.out.println(allList);
-      numList.add(new LinkedList<>(allList));
-      return 0;
+        Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
+        //  arrList=new Integer[]{1,2,3};
+        // arrList=new Integer[]{-2,1};
+        // arrList=new Integer[]{2,-1};
+        arrList = new Integer[]{9};
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreePrintUtil.pirnt(root);
+        int l = new AllTreePathList().sumNumbers(root);
+        System.out.println("max l=" + l);
     }
 
+    public int getAllTreePathList(TreeNode root, LinkedList<Integer> allList) {
+
+        if (root == null) {
+            return 0;
+        }
+        if (allList == null) {
+            allList = new LinkedList<>();
+            allList.addLast(root.val);
+        }
+        if (root.left == null && root.right == null) {
+
+            System.out.println(allList);
+            numList.add(new LinkedList<>(allList));
+            return 0;
+        }
 
 
-    if (root.left != null) {
-      allList.addLast(root.left.val);
-      getAllTreePathList(root.left, allList);
-      allList.removeLast();
+        if (root.left != null) {
+            allList.addLast(root.left.val);
+            getAllTreePathList(root.left, allList);
+            allList.removeLast();
+        }
+        if (root.right != null) {
+            allList.addLast(root.right.val);
+            getAllTreePathList(root.right, allList);
+            allList.removeLast();
+        }
+
+        return 0;
     }
-    if (root.right != null) {
-      allList.addLast(root.right.val);
-      getAllTreePathList(root.right, allList);
-      allList.removeLast();
+
+    int getNum(LinkedList<Integer> t) {
+        int ret = 0;
+        for (int i = 0; i < t.size(); i++) {
+            ret = ret * 10 + t.get(i);
+        }
+        return ret;
     }
 
-    return 0;
-  }
-
-  int getNum(LinkedList<Integer> t) {
-    int ret = 0;
-    for (int i = 0; i < t.size(); i++) {
-      ret = ret * 10 + t.get(i);
+    public int sumNumbers(TreeNode root) {
+        getAllTreePathList(root, null);
+        int ret = 0;
+        for (int i = 0; i < numList.size(); i++) {
+            int r = getNum(numList.get(i));
+            System.out.println(" r=" + r);
+            ret += r;
+        }
+        return ret;
     }
-    return ret;
-  }
-
-  public int sumNumbers(TreeNode root) {
-    getAllTreePathList(root, null);
-    int ret = 0;
-    for (int i = 0; i < numList.size(); i++) {
-        int r=getNum(numList.get(i));
-        System.out.println(" r="+ r);
-      ret += r;
-    }
-    return ret;
-  }
-
-  public static void main(String[] args) {
-
-    Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
-    //  arrList=new Integer[]{1,2,3};
-    // arrList=new Integer[]{-2,1};
-    // arrList=new Integer[]{2,-1};
-      arrList=new Integer[] {9};
-    TreeNode root = TreePrintUtil.makeTree(arrList);
-    TreePrintUtil.pirnt(root);
-    int l = new AllTreePathList().sumNumbers(root);
-    System.out.println("max l=" + l);
-  }
 }

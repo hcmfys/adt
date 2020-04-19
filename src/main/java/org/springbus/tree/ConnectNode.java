@@ -1,12 +1,8 @@
 package org.springbus.tree;
 
 import org.springbus.Node;
-import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
-import sun.misc.LRUCache;
-import sun.security.util.Length;
 
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,59 +29,59 @@ import java.util.List;
 public class ConnectNode {
 
 
+    HashMap<Integer, List<Node>> nodeMap = new HashMap();
 
-    HashMap<Integer, List<Node>> nodeMap=new HashMap();
-    public Node connectNode(Node root,int level) {
-        if(root==null) {
-            return  null;
+    public static void main(String[] args) {
+        Integer[] trees = new Integer[]{1, -2, -3, 1, 3, -2, null, -1}; // -1
+        trees = new Integer[]{1, 2, 3, 4, 5, 6, 7};
+
+        Node root = TreePrintUtil.makeTreeNode(trees);
+        Node treeNode = new ConnectNode().connect(root);
+        System.out.println(treeNode);
+        TreePrintUtil.pirnt(root);
+    }
+
+    public Node connectNode(Node root, int level) {
+        if (root == null) {
+            return null;
         }
-        if(nodeMap.get(level)==null) {
-            nodeMap.put(level,new ArrayList<>());
+        if (nodeMap.get(level) == null) {
+            nodeMap.put(level, new ArrayList<>());
         }
         nodeMap.get(level).add(root);
-        System.out.println( root.val +"--->" +level);
+        System.out.println(root.val + "--->" + level);
 
 
-        if(root.left!=null) {
-            connectNode(root.left, level+1);
+        if (root.left != null) {
+            connectNode(root.left, level + 1);
         }
-        if(root.right!=null) {
+        if (root.right != null) {
             connectNode(root.right, level + 1);
         }
 
 
         return root;
     }
+
     public Node connect(Node root) {
-        if(root==null) {
-            return  null;
+        if (root == null) {
+            return null;
         }
-        connectNode(root,1);
-        Iterator<Integer> keys= nodeMap.keySet().iterator();
-        while(keys.hasNext()) {
-            Integer lv=  keys.next();
-            List<Node>  nodeList=nodeMap.get(lv);
-            if(nodeList.size()>0) {
-                Node lastNode=nodeList.get(0);
+        connectNode(root, 1);
+        Iterator<Integer> keys = nodeMap.keySet().iterator();
+        while (keys.hasNext()) {
+            Integer lv = keys.next();
+            List<Node> nodeList = nodeMap.get(lv);
+            if (nodeList.size() > 0) {
+                Node lastNode = nodeList.get(0);
                 for (int i = 1; i < nodeList.size(); i++) {
                     Node nextNode = nodeList.get(i);
-                    lastNode.next=nextNode;
-                    lastNode=nextNode;
+                    lastNode.next = nextNode;
+                    lastNode = nextNode;
                 }
             }
         }
         return root;
-    }
-
-
-    public static void main(String[] args) {
-        Integer[] trees = new Integer[]{1, -2, -3, 1, 3, -2, null, -1}; // -1
-        trees = new Integer[]{1,2,3,4,5,6,7};
-
-        Node root = TreePrintUtil.makeTreeNode(trees);
-        Node treeNode = new ConnectNode().connect(root);
-        System.out.println(treeNode);
-        TreePrintUtil.pirnt(root);
     }
 
 }

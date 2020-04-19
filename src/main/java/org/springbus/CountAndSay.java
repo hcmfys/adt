@@ -9,8 +9,12 @@ package org.springbus;
  */
 public class CountAndSay {
 
+    public static void main(String[] args) {
+        String s = new CountAndSay().countAndSay(6);
+        System.out.println(s);
+    }
+
     /**
-     *
      * @param n
      * @return
      */
@@ -31,23 +35,17 @@ public class CountAndSay {
             }
             index++;
         }
-        ret.append(counts+""+lastChar);
+        ret.append(counts + "" + lastChar);
         return ret.toString();
     }
 
     public String countAndSay(int n) {
-        if(n==1) {
+        if (n == 1) {
             return "1";
-        }else {
+        } else {
             return countNum(countAndSay(n - 1));
         }
 
-    }
-
-
-    public static void main(String[] args) {
-        String s=new CountAndSay().countAndSay(6);
-        System.out.println(s);
     }
 
 }

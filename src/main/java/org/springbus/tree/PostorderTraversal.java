@@ -25,35 +25,34 @@ import java.util.List;
 
 public class PostorderTraversal {
 
-  private void preorderTraversalNode(TreeNode root, List<Integer> lst) {
-    if (root == null) {
-      return;
-    }
-    lst.add(root.val);
-    if (root.left != null) {
-      preorderTraversalNode(root.left, lst);
-    }
-    if (root.right != null) {
-      preorderTraversalNode(root.right, lst);
-    }
-    }
-
-
-    public List<Integer> preorderTraversal(TreeNode root) {
-
-        List<Integer> res=new ArrayList<>();
-        preorderTraversalNode(root,res);
-        return  res;
-    }
-
     public static void main(String[] args) {
 
         Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
-         arrList=new Integer[]{1,2,3};
+        arrList = new Integer[]{1, 2, 3};
 
         TreeNode root = TreePrintUtil.makeTree(arrList);
         TreePrintUtil.pirnt(root);
         List<Integer> l = new PostorderTraversal().preorderTraversal(root);
         System.out.println("l=" + l);
+    }
+
+    private void preorderTraversalNode(TreeNode root, List<Integer> lst) {
+        if (root == null) {
+            return;
+        }
+        lst.add(root.val);
+        if (root.left != null) {
+            preorderTraversalNode(root.left, lst);
+        }
+        if (root.right != null) {
+            preorderTraversalNode(root.right, lst);
+        }
+    }
+
+    public List<Integer> preorderTraversal(TreeNode root) {
+
+        List<Integer> res = new ArrayList<>();
+        preorderTraversalNode(root, res);
+        return res;
     }
 }

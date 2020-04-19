@@ -3,45 +3,47 @@ package org.springbus;
 public class TravelTree {
 
 
-    public static  void preTraverse(TreeNode root) {
-        System.out.print(root.val +" ");
-        if(root.getLeft()!=null) {
+    public static void preTraverse(TreeNode root) {
+        System.out.print(root.val + " ");
+        if (root.getLeft() != null) {
             preTraverse(root.getLeft());
         }
-        if(root.getRight()!=null) {
+        if (root.getRight() != null) {
             preTraverse(root.getRight());
         }
 
     }
-    public static  void postTraverse(TreeNode root) {
 
-        if(root.getLeft()!=null) {
+    public static void postTraverse(TreeNode root) {
+
+        if (root.getLeft() != null) {
             postTraverse(root.getLeft());
         }
-        if(root.getRight()!=null) {
+        if (root.getRight() != null) {
             postTraverse(root.getRight());
         }
-        System.out.print(root.val +" ");
+        System.out.print(root.val + " ");
     }
 
 
-    public static  void midTraverse(TreeNode root) {
+    public static void midTraverse(TreeNode root) {
 
-        if(root.getLeft()!=null) {
+        if (root.getLeft() != null) {
             midTraverse(root.getLeft());
         }
-        System.out.print(root.val +" ");
-        if(root.getRight()!=null) {
+        System.out.print(root.val + " ");
+        if (root.getRight() != null) {
             midTraverse(root.getRight());
         }
     }
 
     /**
      * 获取树的深度
+     *
      * @param root
      * @return
      */
-    public static  int  getMaxLength(TreeNode root) {
+    public static int getMaxLength(TreeNode root) {
         if (root == null) {
             return 0;
         }
@@ -50,8 +52,6 @@ public class TravelTree {
         return Math.max(a, b) + 1;
 
     }
-
-
 
 
     public static void main(String[] args) {
@@ -73,7 +73,7 @@ public class TravelTree {
         System.out.println("");
         midTraverse(root);
         System.out.println("");
-        System.out.println("max length=" +getMaxLength(root));
+        System.out.println("max length=" + getMaxLength(root));
     }
 
 }

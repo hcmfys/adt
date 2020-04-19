@@ -18,8 +18,15 @@ import java.util.List;
 // Related Topics 回溯算法
 
 public class PermuteUnique {
-    List<List<Integer>> retList=new LinkedList<>();
-    public  void  permuteUnique( LinkedList<Integer>  list, int[] nums) {
+    List<List<Integer>> retList = new LinkedList<>();
+
+    public static void main(String[] args) {
+        int a[] = {1, 2, 3};
+        List<List<Integer>> ret = new PermuteUnique().permuteUnique(a);
+        System.out.println(ret);
+    }
+
+    public void permuteUnique(LinkedList<Integer> list, int[] nums) {
 
         if (list.size() == nums.length) {
             retList.add(new LinkedList<>(list));
@@ -27,30 +34,24 @@ public class PermuteUnique {
         } else {
             for (int i = 0; i < nums.length; i++) {
                 int t = nums[i];
-                System.out.println("i="+i  );
+                System.out.println("i=" + i);
                 if (list.contains(t)) {
-                   continue;
+                    continue;
                 }
                 list.add(t);
-                System.out.println("i="+i   +"  start permuteUnique "  +list);
+                System.out.println("i=" + i + "  start permuteUnique " + list);
                 permuteUnique(list, nums);
-                System.out.println("i="+i   +"  end  permuteUnique "+list);
+                System.out.println("i=" + i + "  end  permuteUnique " + list);
                 list.removeLast();
-                System.out.println("i="+i   +"  删除后  permuteUnique "+list);
+                System.out.println("i=" + i + "  删除后  permuteUnique " + list);
             }
         }
     }
 
     public List<List<Integer>> permuteUnique(int[] nums) {
-        LinkedList<Integer>  aList=new LinkedList<>();
-        permuteUnique(aList,nums);
+        LinkedList<Integer> aList = new LinkedList<>();
+        permuteUnique(aList, nums);
         return retList;
 
-    }
-
-    public static void main(String[] args) {
-        int a[]={1,2,3};
-        List<List<Integer>>  ret= new PermuteUnique().permuteUnique(a);
-        System.out.println(ret);
     }
 }

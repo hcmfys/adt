@@ -35,12 +35,9 @@ package org.springbus.tree;
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
-import org.springbus.BTreePrinter;
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
 
-import javax.swing.text.rtf.RTFEditorKit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,67 +49,67 @@ import java.util.List;
 // leetcode submit region end(Prohibit modification and deletion)
 
 public class IsBst {
-  public List<Integer> list = new ArrayList<>();
+    public List<Integer> list = new ArrayList<>();
 
-  public void checkBst(TreeNode root) {
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(10);
+        TreeNode node9 = new TreeNode(10);
+        TreeNode node20 = new TreeNode(15);
+        TreeNode node15 = new TreeNode(60);
+        TreeNode node7 = new TreeNode(20);
+        TreeNode node10 = new TreeNode(10);
+        TreeNode node11 = new TreeNode(11);
+        TreeNode node12 = new TreeNode(12);
+        root.setLeft(node9);
+        root.setRight(node20);
 
-    if (root == null) {
-      return;
-    } else {
+        node20.setLeft(node15);
+        node20.setRight(node7);
 
-      if (root.left != null) {
-        checkBst(root.left);
-      }
+        node9.setLeft(node10);
+        node9.setRight(node11);
+        node11.setRight(node12);
 
-      list.add(root.val);
+        TreePrintUtil.pirnt(root);
+        boolean ok = new IsBst().isValidBST(root);
+        System.out.println(ok);
+        Integer arr[] = {1, 2, 3, 4, 45, 7, 9, 8};
+        TreeNode rootIt = TreePrintUtil.makeTree(arr);
+        TreePrintUtil.pirnt(rootIt);
 
-      if (root.right != null) {
-        checkBst(root.right);
-      }
     }
-  }
 
-  public boolean isValidBST(TreeNode root) {
-    if (root == null) {
-      return true;
+    public void checkBst(TreeNode root) {
+
+        if (root == null) {
+            return;
+        } else {
+
+            if (root.left != null) {
+                checkBst(root.left);
+            }
+
+            list.add(root.val);
+
+            if (root.right != null) {
+                checkBst(root.right);
+            }
+        }
     }
-    checkBst(root);
-    System.out.println(list);
-    for (int i = 1; i < list.size(); i++) {
-      int a = list.get(i - 1);
-      int b = list.get(i);
-      if (a >= b) {
-        return false;
-      }
+
+    public boolean isValidBST(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        checkBst(root);
+        System.out.println(list);
+        for (int i = 1; i < list.size(); i++) {
+            int a = list.get(i - 1);
+            int b = list.get(i);
+            if (a >= b) {
+                return false;
+            }
+        }
+        return true;
     }
-    return true;
-  }
-
-  public static void main(String[] args) {
-    TreeNode root = new TreeNode(10);
-    TreeNode node9 = new TreeNode(10);
-    TreeNode node20 = new TreeNode(15);
-    TreeNode node15 = new TreeNode(60);
-    TreeNode node7 = new TreeNode(20);
-    TreeNode node10 = new TreeNode(10);
-    TreeNode node11 = new TreeNode(11);
-    TreeNode node12 = new TreeNode(12);
-    root.setLeft(node9);
-    root.setRight(node20);
-
-    node20.setLeft(node15);
-    node20.setRight(node7);
-
-    node9.setLeft(node10);
-    node9.setRight(node11);
-    node11.setRight(node12);
-
-    TreePrintUtil.pirnt(root);
-    boolean ok = new IsBst().isValidBST(root);
-    System.out.println(ok);
-    Integer arr[]={1,2,3,4,45,7,9,8};
-   TreeNode rootIt= TreePrintUtil.makeTree(arr);
-   TreePrintUtil.pirnt(rootIt);
-
-  }
 }

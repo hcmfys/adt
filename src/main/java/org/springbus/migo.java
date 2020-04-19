@@ -11,18 +11,23 @@ public class migo {
             {2, 2, 0, 2, 0, 2, 2},
             {2, 0, 0, 0, 0, 0, 2},
             {2, 2, 2, 2, 2, 2, 2}};
-
-    private  int[][] data(){
-        return  migo;
-    }
-
     int startX = 1, startY = 1;
     int endX = 5, endY = 5;
-
     int flag = 0;
 
+    public static void main(String[] args) {
+        migo m = new migo();
+        m.main();
+        m.data();
+        System.out.println("ok");
+    }
+
+    private int[][] data() {
+        return migo;
+    }
+
     int find(int x, int y) {
-        System.out.println("x="+x +" y="+y);
+        System.out.println("x=" + x + " y=" + y);
         migo[x][y] = 1;
         if (x == endX && y == endY)
             flag = 1;
@@ -38,7 +43,6 @@ public class migo {
             migo[x][y] = 0;
         return flag;
     }
-
 
     void main() {
         int i, j;
@@ -69,13 +73,6 @@ public class migo {
             }
         }
 
-    }
-
-    public static void main(String[] args) {
-        migo m=new migo();
-        m.main();
-        m.data();
-        System.out.println("ok");
     }
 
 

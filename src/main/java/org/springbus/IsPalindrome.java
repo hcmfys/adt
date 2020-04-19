@@ -22,48 +22,47 @@ package org.springbus;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class IsPalindrome {
 
-  String itoa(int x) {
-    boolean isP = false;
-    String ret = "";
-    if (x < 0) {
-      isP = true;
-      x = -x;
-    }
-    int t = x;
-    while (x > 0) {
-      int y= x % 10;
-      x = x / 10;
-      ret += (char) (y + '0' );
-    }
-
-    ret=reverse(ret);
-    System.out.println(ret);
-    return ret;
-    }
-
-  String reverse(String ret) {
-    int size = ret.length();
-    String r = "";
-    for (int i = size - 1; i >= 0; i--) {
-      r += ret.charAt(i);
-    }
-    return r;
-    }
-
-  public boolean isPalindrome(int x) {
-
-    if (x < 0) {
-      return false;
-    }
-    String xx = itoa(x);
-    return xx.equals(reverse(xx));
-    }
-
-
     public static void main(String[] args) {
-        int a=1221;
-        boolean ok=new IsPalindrome().isPalindrome(a);
-        System.out.println(ok );
+        int a = 1221;
+        boolean ok = new IsPalindrome().isPalindrome(a);
+        System.out.println(ok);
+    }
+
+    String itoa(int x) {
+        boolean isP = false;
+        String ret = "";
+        if (x < 0) {
+            isP = true;
+            x = -x;
+        }
+        int t = x;
+        while (x > 0) {
+            int y = x % 10;
+            x = x / 10;
+            ret += (char) (y + '0');
+        }
+
+        ret = reverse(ret);
+        System.out.println(ret);
+        return ret;
+    }
+
+    String reverse(String ret) {
+        int size = ret.length();
+        String r = "";
+        for (int i = size - 1; i >= 0; i--) {
+            r += ret.charAt(i);
+        }
+        return r;
+    }
+
+    public boolean isPalindrome(int x) {
+
+        if (x < 0) {
+            return false;
+        }
+        String xx = itoa(x);
+        return xx.equals(reverse(xx));
     }
 
 }

@@ -22,57 +22,56 @@ package org.springbus;
 public class RemoveNthFromEnd {
 
 
-    private  int getNum(ListNode head) {
-        int i=0;
-        ListNode root=head;
-        while(root!=null) {
-            i++;
-            root=root.next;
-        }
-        return  i;
-    }
-
-  public ListNode removeNthFromEnd(ListNode head, int n) {
-
-    int size = getNum(head);
-    int index = size - n;
-    ListNode root = head;
-    ListNode prev = head;
-    if (size <= 2) {
-      if (index == 1) {
-        head.next = null;
-        return head;
-      } else if (index == 0) {
-        head = head.next;
-        return head;
-      }
-    }
-    if(index==0){
-        head=head.next;
-        return  head;
-    }
-    while (index >0 && root != null) {
-      index--;
-      prev = root;
-      root = root.next;
-    }
-    if (prev != null) {
-
-      prev.next = root.next;
-      System.out.println(root.val);
-    }
-    return head;
-    }
-
-
     public static void main(String[] args) {
-        Integer arrList[] = {1,2,3,4,5,6};
-       // arrList = new Integer[]{1,2,3,4,5};
-        arrList = new Integer[]{1,2,3};
+        Integer arrList[] = {1, 2, 3, 4, 5, 6};
+        // arrList = new Integer[]{1,2,3,4,5};
+        arrList = new Integer[]{1, 2, 3};
         ListNode l1 = TreePrintUtil.makeListNode(arrList);
 
-        ListNode node = new RemoveNthFromEnd().removeNthFromEnd(l1,3);
+        ListNode node = new RemoveNthFromEnd().removeNthFromEnd(l1, 3);
         TreePrintUtil.printListNode(node);
+    }
+
+    private int getNum(ListNode head) {
+        int i = 0;
+        ListNode root = head;
+        while (root != null) {
+            i++;
+            root = root.next;
+        }
+        return i;
+    }
+
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+
+        int size = getNum(head);
+        int index = size - n;
+        ListNode root = head;
+        ListNode prev = head;
+        if (size <= 2) {
+            if (index == 1) {
+                head.next = null;
+                return head;
+            } else if (index == 0) {
+                head = head.next;
+                return head;
+            }
+        }
+        if (index == 0) {
+            head = head.next;
+            return head;
+        }
+        while (index > 0 && root != null) {
+            index--;
+            prev = root;
+            root = root.next;
+        }
+        if (prev != null) {
+
+            prev.next = root.next;
+            System.out.println(root.val);
+        }
+        return head;
     }
 
 }

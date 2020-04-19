@@ -29,10 +29,10 @@ import org.springbus.TreePrintUtil;
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
  * }
  */
 
@@ -40,8 +40,20 @@ import org.springbus.TreePrintUtil;
 
 public class CountNodes {
 
-    int i=0;
-    public  void dfs(TreeNode root) {
+    int i = 0;
+
+    public static void main(String[] args) {
+
+        Integer arrList[] = {3, 9, 20, null, null, 15, 7};
+        //arrList=new Integer[]{1,2};
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreePrintUtil.pirnt(root);
+        int l = new CountNodes().countNodes(root);
+        System.out.println("ll=" + l);
+
+    }
+
+    public void dfs(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -53,21 +65,11 @@ public class CountNodes {
             dfs(root.right);
         }
     }
+
     public int countNodes(TreeNode root) {
 
         dfs(root);
         return i;
-    }
-
-    public static void main(String[] args) {
-
-        Integer arrList[] = {3, 9, 20, null, null, 15, 7};
-        //arrList=new Integer[]{1,2};
-        TreeNode root = TreePrintUtil.makeTree(arrList);
-        TreePrintUtil.pirnt(root);
-        int l = new CountNodes().countNodes(root);
-        System.out.println("ll=" + l);
-
     }
 
 }

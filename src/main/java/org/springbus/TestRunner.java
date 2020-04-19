@@ -2,21 +2,22 @@ package org.springbus;
 
 public abstract class TestRunner {
 
-  public  TestRunner(){
-  }
-  public abstract void run();
+    private TestRunner runner;
 
-  private TestRunner runner;
+    public TestRunner() {
+    }
 
-  public static void info(Object o) {
-    System.out.println(o);
-  }
+    public static void info(Object o) {
+        System.out.println(o);
+    }
 
-  public static void infoLine(Object o) {
-    System.out.println(o);
-  }
+    public static void infoLine(Object o) {
+        System.out.println(o);
+    }
 
-  public static void main(String[] args) {
+    public static void main(String[] args) {
 
-  }
+    }
+
+    public abstract void run();
 }

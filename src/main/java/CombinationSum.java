@@ -1,30 +1,24 @@
-
-import com.sun.javafx.scene.control.skin.VirtualFlow;
-
-import javax.print.attribute.standard.PrinterURI;
-import java.awt.dnd.DropTarget;
-import java.text.BreakIterator;
 import java.util.*;
 
 /**
  * 给定一个无重复元素的数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。
- *
+ * <p>
  * candidates 中的数字可以无限制重复被选取。
- *
+ * <p>
  * 说明：
- *
+ * <p>
  * 所有数字（包括 target）都是正整数。
  * 解集不能包含重复的组合。 
  * 示例 1:
- *
+ * <p>
  * 输入: candidates = [2,3,6,7], target = 7,
  * 所求解集为:
  * [
- *   [7],
- *   [2,2,3]
+ * [7],
+ * [2,2,3]
  * ]
  * 示例 2:
- *
+ * <p>
  * 输入: candidates = [2,3,5], target = 8,
  * 所求解集为:
  * [
@@ -38,6 +32,21 @@ import java.util.*;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class CombinationSum {
+
+    public static void main(String[] args) {
+        long t1 = System.currentTimeMillis();
+        for (int i = 0; i < 1; i++) {
+            int a[] = {2, 3, 5};
+            //a = new int[]{3, 2, 7, 6};
+            //a = new int[]{5, 10, 8, 4, 3, 12, 9};
+            a = new int[]{6, 8, 12, 5, 9, 3, 4, 11, 31};
+            int target = 31;
+            List<List<Integer>> ret = new CombinationSum().combinationSum(a, target);
+            System.out.println(ret);
+        }
+        long t2 = System.currentTimeMillis();
+        System.out.println("t2-t1= " + (t2 - t1));
+    }
 
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<>();
@@ -74,23 +83,5 @@ public class CombinationSum {
             path.removeLast();
 
         }
-    }
-
-
-
-
-    public static void main(String[] args) {
-       long t1= System.currentTimeMillis();
-        for(int i=0;i<1;i++) {
-            int a[] = {2, 3, 5};
-            //a = new int[]{3, 2, 7, 6};
-          //a = new int[]{5, 10, 8, 4, 3, 12, 9};
-            a=new int[] {6,8,12,5,9,3,4,11 ,31};
-            int target = 31;
-            List<List<Integer>> ret = new CombinationSum().combinationSum(a, target);
-            System.out.println(ret);
-        }
-        long t2= System.currentTimeMillis();
-        System.out.println("t2-t1= "+ (t2-t1));
     }
 }

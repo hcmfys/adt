@@ -1,12 +1,9 @@
 package org.springbus.tree;
 
-import com.sun.org.apache.bcel.internal.generic.RET;
 import org.junit.Test;
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
-import org.w3c.dom.ls.LSException;
 
-import javax.lang.model.type.ErrorType;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,60 +32,60 @@ import java.util.List;
 public class GetTreePathSum {
 
 
-  List<List<Integer>> pathList = new ArrayList<>();
+    List<List<Integer>> pathList = new ArrayList<>();
 
-  public void hasPathSumList(TreeNode root, int sum, List<Integer> resList) {
+    public void hasPathSumList(TreeNode root, int sum, List<Integer> resList) {
 
-    if (root == null) {
-      return;
+        if (root == null) {
+            return;
+        }
+        resList.add(root.val);
+        if (root.left == null && root.right == null) {
+            boolean ok = root.val == sum;
+            System.out.println("val=" + root.val + " -- " + sum + "  find= " + ok);
+            if (ok) {
+                pathList.add(new ArrayList<>(resList));
+            }
+            return;
+        }
+
+        System.out.println("val=" + root.val + " -->" + sum);
+
+        if (root.left != null) {
+            hasPathSumList(root.left, sum - root.val, resList);
+            resList.remove(resList.size() - 1);
+        }
+        if (root.right != null) {
+            hasPathSumList(root.right, sum - root.val, resList);
+            resList.remove(resList.size() - 1);
+        }
     }
-    resList.add(root.val);
-    if (root.left == null && root.right == null) {
-      boolean ok = root.val == sum;
-      System.out.println("val=" + root.val + " -- " + sum + "  find= " + ok);
-      if (ok) {
-        pathList.add(new ArrayList<>(resList));
-      }
-      return;
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+
+        hasPathSumList(root, sum, new ArrayList<>());
+        return pathList;
     }
 
-    System.out.println("val=" + root.val + " -->" + sum);
+    public boolean hasPathSum(TreeNode root, int sum) {
 
-    if (root.left != null) {
-      hasPathSumList(root.left, sum - root.val, resList);
-      resList.remove(resList.size() - 1);
+        hasPathSumList(root, sum, new LinkedList<>());
+        System.out.println(pathList);
+        return pathList.size() > 0;
     }
-    if (root.right != null) {
-      hasPathSumList(root.right, sum - root.val, resList);
-      resList.remove(resList.size() - 1);
+
+    @Test
+    public void run() {
+        Integer[] trees = new Integer[]{1, -2, -3, 1, 3, -2, null, -1}; // -1
+        trees = new Integer[]{5, 4, 8, 11, null, 13, 9, 7, 2, null, null, null, 1}; // 22
+        // trees = new Integer[] {1};  //1
+        //trees = new Integer[]{null}; // 1
+        // trees = new Integer[]{1, 2}; // 1
+        TreeNode root = TreePrintUtil.makeTree(trees);
+        boolean isExists = new GetTreePathSum().hasPathSum(root, 22);
+        System.out.println(isExists);
+        TreePrintUtil.pirnt(root);
     }
-  }
-
-  public List<List<Integer>> pathSum(TreeNode root, int sum) {
-
-    hasPathSumList(root, sum, new ArrayList<>());
-    return pathList;
-  }
-
-  public boolean hasPathSum(TreeNode root, int sum) {
-
-    hasPathSumList(root, sum, new LinkedList<>());
-    System.out.println(pathList);
-    return pathList.size() > 0;
-  }
-
-  @Test
-  public void run() {
-    Integer[] trees = new Integer[]{1, -2, -3, 1, 3, -2, null, -1}; // -1
-    trees = new Integer[]{5, 4, 8, 11, null, 13, 9, 7, 2, null, null, null, 1}; // 22
-    // trees = new Integer[] {1};  //1
-    //trees = new Integer[]{null}; // 1
-    // trees = new Integer[]{1, 2}; // 1
-    TreeNode root = TreePrintUtil.makeTree(trees);
-    boolean isExists = new GetTreePathSum().hasPathSum(root, 22);
-    System.out.println(isExists);
-    TreePrintUtil.pirnt(root);
-  }
 }
 
 

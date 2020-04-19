@@ -25,17 +25,37 @@ public class TreePrinter<T> {
         this.getRight = getRight;
     }
 
+    private static int minLeftOffset(List<TreeLine> treeLines) {
+        return treeLines.stream().mapToInt(l -> l.leftOffset).min().orElse(0);
+    }
+
+    private static int maxRightOffset(List<TreeLine> treeLines) {
+        return treeLines.stream().mapToInt(l -> l.rightOffset).max().orElse(0);
+    }
+
+    private static String spaces(int n) {
+        return String.join("", Collections.nCopies(n, " "));
+    }
+
     public void setPrintStream(PrintStream outStream) {
         this.outStream = outStream;
     }
 
-    public void setSquareBranches(boolean squareBranches) { this.squareBranches = squareBranches; }
+    public void setSquareBranches(boolean squareBranches) {
+        this.squareBranches = squareBranches;
+    }
 
-    public void setLrAgnostic(boolean lrAgnostic) { this.lrAgnostic = lrAgnostic; }
+    public void setLrAgnostic(boolean lrAgnostic) {
+        this.lrAgnostic = lrAgnostic;
+    }
 
-    public void setHspace(int hspace) { this.hspace = hspace; }
+    public void setHspace(int hspace) {
+        this.hspace = hspace;
+    }
 
-    public void setTspace(int tspace) { this.hspace = tspace; }
+    public void setTspace(int tspace) {
+        this.hspace = tspace;
+    }
 
     /*
         Prints ascii representation of binary tree.
@@ -237,18 +257,6 @@ public class TreePrinter<T> {
             }
             return allTreeLines;
         }
-    }
-
-    private static int minLeftOffset(List<TreeLine> treeLines) {
-        return treeLines.stream().mapToInt(l -> l.leftOffset).min().orElse(0);
-    }
-
-    private static int maxRightOffset(List<TreeLine> treeLines) {
-        return treeLines.stream().mapToInt(l -> l.rightOffset).max().orElse(0);
-    }
-
-    private static String spaces(int n) {
-        return String.join("", Collections.nCopies(n, " "));
     }
 
     private static class TreeLine {

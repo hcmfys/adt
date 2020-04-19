@@ -5,7 +5,56 @@ import java.util.Random;
 public class Skip_Node_List {
 
     int SKIP_LIST_MAX_LEVEL = 32;
+    private Random r = new Random(System.currentTimeMillis());
 
+    public static void test() {
+        Skip_Node_List skip_nodeList = new Skip_Node_List();
+        Skip_List skip = skip_nodeList.create_skiplist();
+
+        for (int i = 0; i < 10; i++) {
+            skip_nodeList.insert_skipnode(skip, i, i + 100);
+        }
+
+        skip_nodeList.print_skiplist(skip);
+
+        Skip_Node start = new Skip_Node();
+        Skip_Node end = new Skip_Node();
+        skip_nodeList.find_skipnode_inrange(skip, 3, 6.3, start, end);
+        for (; start.score < end.score; start = start.level[0].forward) {
+            System.out.println(String.format("find result score:%f,level:%d,data:%d ",
+                    start.score, start.levelNum, start.data));
+        }
+        skip_nodeList.remove_inrange(skip, 3, 6.3);
+        skip_nodeList.print_skiplist(skip);
+
+        start = skip_nodeList.find_skipnode(skip, 9);
+        System.out.println(String.format("find result score:%f,level:%d,data:%d", start.score, start.levelNum, start.data));
+
+        skip_nodeList.insert_skipnode(skip, -3, 789);
+        skip_nodeList.print_skiplist(skip);
+        skip_nodeList.insert_skipnode(skip, 54, 999);
+        skip_nodeList.print_skiplist(skip);
+
+        skip_nodeList.remove_inrange(skip, 100, 300);
+        skip_nodeList.print_skiplist(skip);
+
+        skip_nodeList.remove_inrange(skip, 50, 100);
+        skip_nodeList.print_skiplist(skip);
+        skip_nodeList.destroy_skiplist(skip);
+    }
+
+    public static void main(String[] args) {
+        Skip_Node_List skip_nodeList = new Skip_Node_List();
+        Skip_List skip = skip_nodeList.create_skiplist();
+
+        for (int i = 0; i < 10; i++) {
+            skip_nodeList.insert_skipnode(skip, i, i + 100);
+        }
+
+        skip_nodeList.print_skiplist_all(skip);
+
+
+    }
 
     //函数实现
     public Skip_List create_skiplist() {
@@ -29,7 +78,7 @@ public class Skip_Node_List {
 
         return skiplist;
     }
-    private Random r= new Random(System.currentTimeMillis());
+
     public int rand_level() {
         int level = 1;
         level = r.nextInt() % SKIP_LIST_MAX_LEVEL;
@@ -180,6 +229,36 @@ public class Skip_Node_List {
         return null;
     }
 
+    //								            106 [29]
+    //								            106 [29]
+    //						        105 [27]    106 [29]
+    // 100 [26]					    105 [27]	106 [29]
+    // 100 [26]					    105 [27]	106 [29]
+    // 100 [26]					    105 [27]    106 [29]
+    // 100 [26]					    105 [27]    106 [29]
+    // 100 [26]					    105 [27]    106 [29]
+    // 100 [26]					    105 [27]	106 [29]
+    // 100 [26]					    105 [27]    106 [29]
+    // 100 [26]					    105 [27]    106 [29]
+    // 100 [26]                                           105 [27]	106 [29]
+    // 100 [26]                                           105 [27]	106 [29]
+    // 100 [26]                                           105 [27]    106 [29]
+    // 100 [26]                                           105 [27]   106 [29]
+    // 100 [26]  104 [14]                                 105 [27]   106 [29]
+    // 100 [26]  104 [14]                                 105 [27]   106 [29]
+    // 100 [26]  104 [14]                                 105 [27]   106 [29]
+    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
+    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
+    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
+    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
+    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
+    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
+    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
+    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
+    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
+    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
+    // 100 [26]  101 [5]  102 [1]   103 [11]    104 [14]  105 [27]  106 [29]  107 [1]  108 [1]  109 [1]
+
     public void remove_inrange(Skip_List skiplist, double startscore, double endscore) {
         int maxlevel = skiplist.level;
         Skip_Node head = skiplist.head;
@@ -252,52 +331,22 @@ public class Skip_Node_List {
 //        free(skiplist);
     }
 
-    //								            106 [29]
-    //								            106 [29]
-    //						        105 [27]    106 [29]
-    // 100 [26]					    105 [27]	106 [29]
-    // 100 [26]					    105 [27]	106 [29]
-    // 100 [26]					    105 [27]    106 [29]
-    // 100 [26]					    105 [27]    106 [29]
-    // 100 [26]					    105 [27]    106 [29]
-    // 100 [26]					    105 [27]	106 [29]
-    // 100 [26]					    105 [27]    106 [29]
-    // 100 [26]					    105 [27]    106 [29]
-    // 100 [26]                                           105 [27]	106 [29]
-    // 100 [26]                                           105 [27]	106 [29]
-    // 100 [26]                                           105 [27]    106 [29]
-    // 100 [26]                                           105 [27]   106 [29]
-    // 100 [26]  104 [14]                                 105 [27]   106 [29]
-    // 100 [26]  104 [14]                                 105 [27]   106 [29]
-    // 100 [26]  104 [14]                                 105 [27]   106 [29]
-    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
-    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
-    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
-    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
-    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
-    // 100 [26]  103 [11]                       104 [14]  105 [27]   106 [29]
-    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
-    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
-    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
-    // 100 [26]  101 [5]            103 [11]    104 [14]  105 [27]   106 [29]
-    // 100 [26]  101 [5]  102 [1]   103 [11]    104 [14]  105 [27]  106 [29]  107 [1]  108 [1]  109 [1]
-
     public void print_skiplist_all(Skip_List skiplist) {
         if (skiplist == null)
             return;
         System.out.println("====================================\n");
         Skip_Node head = skiplist.head;
-        int len= head.levelNum;
-        for(int i=len-1;i>=0;i--) {
+        int len = head.levelNum;
+        for (int i = len - 1; i >= 0; i--) {
             Skip_Level root = head.level[i];
 
             Skip_Node nextNode = root.forward;
-            Skip_Node firstNode=nextNode;
+            Skip_Node firstNode = nextNode;
             System.out.print("H->");
-            int j=0;
+            int j = 0;
             while (nextNode != null) {
                 Skip_Level nextLevel = nextNode.level[i];
-                if(j==0) {
+                if (j == 0) {
                     j++;
                     int w1 = getOffSet(skiplist, firstNode);
                     System.out.print(String.format("%s", getEmpty(w1)));
@@ -305,8 +354,8 @@ public class Skip_Node_List {
                 //System.out.println("w="+w);
                 System.out.print(String.format("%3d[%d]->", nextNode.data, nextNode.levelNum));
                 nextNode = nextLevel.forward;
-                int  w2 = getOffSet(skiplist, nextNode);
-                int  w1 = getOffSet(skiplist, firstNode);
+                int w2 = getOffSet(skiplist, nextNode);
+                int w1 = getOffSet(skiplist, firstNode);
                 int w = w2 - w1;
                 System.out.print(String.format("%s", getEmpty(w)));
                 firstNode = nextNode;
@@ -317,18 +366,19 @@ public class Skip_Node_List {
         }
         System.out.println("++++++++++++++++++++++++++++++++++++\n");
     }
-    private String getEmpty( int n    ) {
-        String t="-------";
-        StringBuffer sb=new StringBuffer();
-        for(int i=0;i<n;i++){
+
+    private String getEmpty(int n) {
+        String t = "-------";
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < n; i++) {
             sb.append(t);
         }
-        return   sb.toString();
+        return sb.toString();
     }
 
-    private int getOffSet(Skip_List skiplist , Skip_Node lastNode   ) {
-        if(lastNode==null) {
-            return  0;
+    private int getOffSet(Skip_List skiplist, Skip_Node lastNode) {
+        if (lastNode == null) {
+            return 0;
         }
         if (lastNode == skiplist.head) {
             return 0;
@@ -339,11 +389,11 @@ public class Skip_Node_List {
             int l = 0;
             for (; ; ) {
                 l++;
-                if (nextNode == null || nextNode.data==null) {
+                if (nextNode == null || nextNode.data == null) {
                     break;
                 }
 
-                if (nextNode.data!=null && nextNode.data.equals(lastNode.data)) {
+                if (nextNode.data != null && nextNode.data.equals(lastNode.data)) {
                     break;
                 }
                 nextNode = nextNode.level[0].forward;
@@ -363,57 +413,6 @@ public class Skip_Node_List {
                     head.data));
         }
         System.out.println("++++++++++++++++++++++++++++++++++++\n");
-    }
-
-
-    public  static  void test(){
-        Skip_Node_List skip_nodeList = new Skip_Node_List();
-        Skip_List skip = skip_nodeList.create_skiplist();
-
-        for (int i = 0; i < 10; i++) {
-            skip_nodeList.insert_skipnode(skip, i, i + 100);
-        }
-
-        skip_nodeList.print_skiplist(skip);
-
-        Skip_Node start = new Skip_Node();
-        Skip_Node end = new Skip_Node();
-        skip_nodeList.find_skipnode_inrange(skip, 3, 6.3, start, end);
-        for (; start.score < end.score; start = start.level[0].forward) {
-            System.out.println(String.format("find result score:%f,level:%d,data:%d ",
-                    start.score, start.levelNum, start.data));
-        }
-        skip_nodeList.remove_inrange(skip, 3, 6.3);
-        skip_nodeList.print_skiplist(skip);
-
-        start = skip_nodeList.find_skipnode(skip, 9);
-        System.out.println(String.format("find result score:%f,level:%d,data:%d", start.score, start.levelNum, start.data));
-
-        skip_nodeList.insert_skipnode(skip, -3, 789);
-        skip_nodeList.print_skiplist(skip);
-        skip_nodeList.insert_skipnode(skip, 54, 999);
-        skip_nodeList.print_skiplist(skip);
-
-        skip_nodeList.remove_inrange(skip, 100, 300);
-        skip_nodeList.print_skiplist(skip);
-
-        skip_nodeList.remove_inrange(skip, 50, 100);
-        skip_nodeList.print_skiplist(skip);
-        skip_nodeList.destroy_skiplist(skip);
-    }
-    public static void main(String[] args) {
-        Skip_Node_List skip_nodeList = new Skip_Node_List();
-        Skip_List skip = skip_nodeList.create_skiplist();
-
-        for (int i = 0; i < 10; i++) {
-            skip_nodeList.insert_skipnode(skip, i, i + 100);
-        }
-
-        skip_nodeList.print_skiplist_all(skip);
-
-
-
-
     }
 
 

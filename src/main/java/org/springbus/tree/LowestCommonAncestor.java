@@ -33,115 +33,112 @@ package org.springbus.tree;
 // p、q 为不同节点且均存在于给定的二叉搜索树中。
 //
 // Related Topics 树
-import jdk.nashorn.internal.ir.ReturnNode;
+
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
-import sun.reflect.generics.tree.Tree;
-
-import javax.swing.text.rtf.RTFEditorKit;
 
 public class LowestCommonAncestor {
 
-  public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-    if (root == null) {
-      return null;
+    public static void main(String[] args) {
+
+        Integer[] trees = new Integer[]{6, 2, 8, 0, 4, 7, 9, null, null, 3, 5};
+        trees = new Integer[]{3, 5, 1, 6, 2, 0, 8, null, null, 7, 4};
+
+        TreeNode root = TreePrintUtil.makeTree(trees);
+        TreeNode p = root.nodesList[9];
+        TreeNode q = root.nodesList[10];
+        TreePrintUtil.pirnt(root);
+
+        TreeNode node = new LowestCommonAncestor().lowestCommonAncestor2(root, p, q);
+        System.out.println(node.val);
+
     }
-    int p1 = p.val;
-    int q1 = q.val;
-    int max = Math.max(p1, q1);
-    int min = Math.min(p1, q1);
 
-    // 两个都在左边
-    if (root.val > max) {
-      if (root.val == min) {
-        return root;
-      }
-      return lowestCommonAncestor(root.left, p, q);
-
-    } else {
-      // 两个在两边
-      if (root.val < max && root.val > min) {
-        return root;
-      } else if (root.val < min) {
-        // 两个在右边
-        if (root.val == max) {
-          return root;
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
         }
-        return lowestCommonAncestor(root.right, p, q);
-      }
-    }
+        int p1 = p.val;
+        int q1 = q.val;
+        int max = Math.max(p1, q1);
+        int min = Math.min(p1, q1);
 
-    return root;
-  }
+        // 两个都在左边
+        if (root.val > max) {
+            if (root.val == min) {
+                return root;
+            }
+            return lowestCommonAncestor(root.left, p, q);
 
-  public TreeNode findNode(TreeNode root, TreeNode q) {
+        } else {
+            // 两个在两边
+            if (root.val < max && root.val > min) {
+                return root;
+            } else if (root.val < min) {
+                // 两个在右边
+                if (root.val == max) {
+                    return root;
+                }
+                return lowestCommonAncestor(root.right, p, q);
+            }
+        }
 
-    if (root == null) {
-      return null;
-    }
-    if (root.val == q.val) {
-      return root;
-    }
-    if (root.left != null) {
-      TreeNode p1 = findNode(root.left, q);
-      if (p1 != null) {
-        return p1;
-      }
-    }
-    if (root.right != null) {
-      TreeNode p1 = findNode(root.right, q);
-      if (p1 != null) {
-        return p1;
-      }
-    }
-    return null;
-  }
-
-  public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
-
-    if (root == null) {
-      return null;
-    }
-    if (root.val == p.val || root.val == q.val) {
-      return root;
-    }
-
-    if (root.left != null) {
-      TreeNode p1 = findNode(root.left, p);
-      TreeNode p2 = findNode(root.left, q);
-      if (p1 != null && p2 != null) {
-        return lowestCommonAncestor2(root.left, p, q);
-      } else {
-        if(p1!=null || p2!=null)
         return root;
-      }
     }
-    if (root.right != null) {
-      TreeNode p1 = findNode(root.right, p);
-      TreeNode p2 = findNode(root.right, q);
-      if (p1 != null && p2 != null) {
-        return lowestCommonAncestor2(root.right, p, q);
-      } else {
-        if(p1!=null || p2!=null)
-          return root;
-      }
 
+    public TreeNode findNode(TreeNode root, TreeNode q) {
+
+        if (root == null) {
+            return null;
+        }
+        if (root.val == q.val) {
+            return root;
+        }
+        if (root.left != null) {
+            TreeNode p1 = findNode(root.left, q);
+            if (p1 != null) {
+                return p1;
+            }
+        }
+        if (root.right != null) {
+            TreeNode p1 = findNode(root.right, q);
+            if (p1 != null) {
+                return p1;
+            }
+        }
+        return null;
     }
-    return null;
-  }
 
-  public static void main(String[] args) {
+    public TreeNode lowestCommonAncestor2(TreeNode root, TreeNode p, TreeNode q) {
 
-    Integer[] trees = new Integer[] {6, 2, 8, 0, 4, 7, 9, null, null, 3, 5};
-    trees = new Integer[]  {3,5,1,6,2,0,8,null,null,7,4};
+        if (root == null) {
+            return null;
+        }
+        if (root.val == p.val || root.val == q.val) {
+            return root;
+        }
 
-    TreeNode root = TreePrintUtil.makeTree(trees);
-    TreeNode p = root.nodesList[9];
-    TreeNode q = root.nodesList[10];
-    TreePrintUtil.pirnt(root);
+        if (root.left != null) {
+            TreeNode p1 = findNode(root.left, p);
+            TreeNode p2 = findNode(root.left, q);
+            if (p1 != null && p2 != null) {
+                return lowestCommonAncestor2(root.left, p, q);
+            } else {
+                if (p1 != null || p2 != null)
+                    return root;
+            }
+        }
+        if (root.right != null) {
+            TreeNode p1 = findNode(root.right, p);
+            TreeNode p2 = findNode(root.right, q);
+            if (p1 != null && p2 != null) {
+                return lowestCommonAncestor2(root.right, p, q);
+            } else {
+                if (p1 != null || p2 != null)
+                    return root;
+            }
 
-    TreeNode node = new LowestCommonAncestor().lowestCommonAncestor2(root, p, q);
-    System.out.println(node.val);
-
-  }
+        }
+        return null;
+    }
 }

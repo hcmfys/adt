@@ -3,13 +3,34 @@ package org.springbus.tree;
 public class TrieTree {
 
     private TrieNode rootNode;
-    public TrieTree(){
-        rootNode=new TrieNode(' ');
+
+    public TrieTree() {
+        rootNode = new TrieNode(' ');
     }
-    public  TrieNode create(String word){
-        return create(word,rootNode);
+
+    public static void main(String[] args) {
+        TrieTree ti = new TrieTree();
+        ti.create("java");
+        ti.create("javap");
+        ti.create("jac");
+        TrieNode node = ti.getRootNode();
+        System.out.println(node);
+        boolean ok = ti.search("ja");
+        System.out.println("ja" + ok);
+
+        ok = ti.search("jav");
+        System.out.println("jav=" + ok);
+
+
+        ok = ti.search("sc");
+        System.out.println("sc=" + ok);
     }
-    public  TrieNode getRootNode(){
+
+    public TrieNode create(String word) {
+        return create(word, rootNode);
+    }
+
+    public TrieNode getRootNode() {
         return rootNode;
     }
 
@@ -33,20 +54,21 @@ public class TrieTree {
         }
     }
 
-    private  boolean search(String word) {
-        if(word==null) {
-            return  false;
+    private boolean search(String word) {
+        if (word == null) {
+            return false;
         }
-        return search(word,rootNode);
+        return search(word, rootNode);
     }
 
     /**
      * search
+     *
      * @param word
      * @param root
      * @return
      */
-    public   boolean search(String word,TrieNode root) {
+    public boolean search(String word, TrieNode root) {
         if (word.length() == 1) {
             char c = word.charAt(0);
             int index = charIndex(c);
@@ -64,23 +86,4 @@ public class TrieTree {
     private int charIndex(char c) {
         return c - 'a';
     }
-
-
-     public static void main(String[] args) {
-         TrieTree ti = new TrieTree();
-         ti.create("java");
-         ti.create("javap");
-         ti.create("jac");
-         TrieNode node = ti.getRootNode();
-         System.out.println(node);
-         boolean ok=ti.search("ja");
-         System.out.println("ja"+ok);
-
-         ok=ti.search("jav");
-         System.out.println("jav=" +ok);
-
-
-         ok=ti.search("sc");
-         System.out.println("sc=" +ok);
-     }
 }
