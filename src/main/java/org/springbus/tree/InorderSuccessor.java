@@ -2,10 +2,7 @@ package org.springbus.tree;
 
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
-import sun.reflect.generics.tree.Tree;
 
-import javax.jnlp.IntegrationService;
-import javax.swing.text.rtf.RTFEditorKit;
 import java.util.ArrayList;
 import java.util.List;
 //1431
@@ -43,25 +40,43 @@ import java.util.List;
 public class InorderSuccessor {
 
 
-    List<TreeNode> allList=new ArrayList<>();
-    public  void dfs(TreeNode root ){
+    List<TreeNode> allList = new ArrayList<>();
+    private boolean isExists = false;
+    private TreeNode lastNode;
 
-        if(root==null) {
+    public static void main(String[] args) {
+
+        Integer arrList[] = {5, 3, 6, 2, 4, null, null, 1};
+        arrList = new Integer[]{2, 1, 3};
+        arrList = new Integer[]{5, 3, 6, 2, 4, null, null, 1};
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreeNode p = root.getNodesList()[3];
+        TreePrintUtil.pirnt(root);
+        System.out.println("p=" + p.val);
+        TreeNode l = new InorderSuccessor().inorderSuccessor2(root, p);
+        TreePrintUtil.pirnt(l);
+
+    }
+
+    public void dfs(TreeNode root) {
+
+        if (root == null) {
             return;
         }
-        if(root.left!=null) {
+        if (root.left != null) {
             dfs(root.left);
         }
         allList.add(root);
-        if(root.right!=null) {
+        if (root.right != null) {
             dfs(root.right);
         }
     }
+
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         dfs(root);
         for (int i = 0; i < allList.size(); i++) {
             if (p == allList.get(i)) {
-                int j=i+1;
+                int j = i + 1;
                 if (j <= allList.size() - 1) {
                     return allList.get(j);
                 }
@@ -70,19 +85,16 @@ public class InorderSuccessor {
         return null;
     }
 
-
-    private  boolean isExists=false;
     public TreeNode inorderSuccessor2(TreeNode root, TreeNode p) {
         System.out.println("------------\n");
-          TreeNode n= dfs(root,p);
-          System.out.println("\n--------------\n");
+        TreeNode n = dfs(root, p);
+        System.out.println("\n--------------\n");
 
-          System.out.println( " in node="+ (  lastNode==null ? "null" : lastNode.val) );
-        return  n;
+        System.out.println(" in node=" + (lastNode == null ? "null" : lastNode.val));
+        return n;
     }
 
-    private  TreeNode lastNode;
-    public  TreeNode dfs(TreeNode root,TreeNode p  ) {
+    public TreeNode dfs(TreeNode root, TreeNode p) {
 
         if (root == null) {
             return null;
@@ -104,20 +116,6 @@ public class InorderSuccessor {
             dfs(root.right, p);
         }
         return root;
-    }
-
-    public static void main(String[] args) {
-
-        Integer arrList[] = {5, 3, 6, 2, 4, null, null, 1};
-        arrList  =new Integer[] {2,1,3};
-        arrList=new Integer[] {5,3,6,2,4,null,null,1};
-        TreeNode root = TreePrintUtil.makeTree(arrList);
-        TreeNode p = root.getNodesList()[3];
-        TreePrintUtil.pirnt(root);
-        System.out.println("p="+ p.val);
-        TreeNode l = new InorderSuccessor().inorderSuccessor2(root, p);
-        TreePrintUtil.pirnt(l);
-
     }
 
 }

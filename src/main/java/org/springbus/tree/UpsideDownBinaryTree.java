@@ -2,10 +2,6 @@ package org.springbus.tree;
 
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
-import sun.font.GlyphLayout;
-import sun.util.resources.cldr.ro.CalendarData_ro_RO;
-
-import javax.swing.text.rtf.RTFEditorKit;
 //给定一个二叉树，其中所有的右节点要么是具有兄弟节点（拥有相同父节点的左节点）的叶节点，要么为空，
 // 将此二叉树上下翻转并将它变成一棵树，
 // 原来的右节点将转换成左叶节点。返回新的根。
@@ -55,6 +51,26 @@ public class UpsideDownBinaryTree {
     //然后反转
     //唯一要注意的一点是最后原本的根节点root的左右子树需要置null，否则会形成环
 
+    /* 经过翻转之后，原来的左子节点变成了根节点，
+    右子节点变成了左子节点，根节点变成了右子节点。
+    先递归找到最终的根节点，
+   保存到全局变量result中，递归函数Dfs返回的是需要被填充的节点
+   （返回到上一层递归之后，赋值左孩子和右孩子） */
+    TreeNode result = null;
+
+    public static void main(String[] args) {
+
+        Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
+        arrList = new Integer[]{1, 2, 3, 4, 5};
+        // arrList=new Integer[]{-2,1};
+        // arrList=new Integer[]{2,-1};
+
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreePrintUtil.pirnt(root);
+        root = new UpsideDownBinaryTree().upsideDownBinaryTree2(root);
+        TreePrintUtil.pirnt(root);
+    }
+
     ///* 经过翻转之后，原来的左子节点变成了根节点，右子节点变成了左子节点，
     // 根节点变成了右子节点。先递归找到最终的根节点，
     //   保存到全局变量result中，
@@ -80,14 +96,6 @@ public class UpsideDownBinaryTree {
         return ans;
     }
 
-
-    /* 经过翻转之后，原来的左子节点变成了根节点，
-    右子节点变成了左子节点，根节点变成了右子节点。
-    先递归找到最终的根节点，
-   保存到全局变量result中，递归函数Dfs返回的是需要被填充的节点
-   （返回到上一层递归之后，赋值左孩子和右孩子） */
-    TreeNode result = null;
-
     private TreeNode Dfs(TreeNode root) {
 
         if (root == null || root.left == null) {
@@ -106,20 +114,6 @@ public class UpsideDownBinaryTree {
     public TreeNode upsideDownBinaryTree2(TreeNode root) {
         Dfs(root);
         return result;
-    }
-
-
-    public static void main(String[] args) {
-
-        Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
-        arrList = new Integer[]{1, 2, 3, 4, 5};
-        // arrList=new Integer[]{-2,1};
-        // arrList=new Integer[]{2,-1};
-
-        TreeNode root = TreePrintUtil.makeTree(arrList);
-        TreePrintUtil.pirnt(root);
-        root = new UpsideDownBinaryTree().upsideDownBinaryTree2(root);
-        TreePrintUtil.pirnt(root);
     }
 
 

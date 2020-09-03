@@ -26,7 +26,7 @@ public class RandomTree {
         printer.printTree(tree);
         System.out.println();
 
-        printer = new TreePrinter<>(n -> ""+n.val, n -> n.getLeft(), n -> n.getRight());
+        printer = new TreePrinter<>(n -> "" + n.val, n -> n.getLeft(), n -> n.getRight());
         printer.setHspace(1);
         // use square branches
         printer.setSquareBranches(true);

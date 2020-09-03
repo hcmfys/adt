@@ -1,5 +1,6 @@
 package org.springbus;
-public  class Node  extends  TreeNode{
+
+public class Node extends TreeNode {
 
     public int val;
     public Node left;
@@ -14,24 +15,27 @@ public  class Node  extends  TreeNode{
         super(_val);
         val = _val;
     }
+
     public Node(int value, Node left, Node right) {
-        super(value,left,right);
-    }
-    public  void setLeft( Node left){
-        super.left=left;
-        this.left=left;
-    }
-    public  void setRight( Node right) {
-        super.right = right;
-        this.right = right;
+        super(value, left, right);
     }
 
     public Node(int _val, Node _left, Node _right, Node _next) {
-        super(_val,_left,_right,_next);
+        super(_val, _left, _right, _next);
         val = _val;
         left = _left;
         right = _right;
         next = _next;
+    }
+
+    public void setLeft(Node left) {
+        super.left = left;
+        this.left = left;
+    }
+
+    public void setRight(Node right) {
+        super.right = right;
+        this.right = right;
     }
 
 }

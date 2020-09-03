@@ -31,7 +31,7 @@ import java.util.List;
 // Related Topics 树 动态规划
 public class BuildBstTree {
 
-    TreeNode  findBst(TreeNode root,int val) {
+    TreeNode findBst(TreeNode root, int val) {
 
         if (root != null && root.left == null && root.right == null) {
             return root;
@@ -47,7 +47,7 @@ public class BuildBstTree {
 
     public List<TreeNode> generateTrees(int n) {
 
-        List<TreeNode>  list=new ArrayList<>();
+        List<TreeNode> list = new ArrayList<>();
 
         return list;
     }

@@ -1,9 +1,9 @@
 package org.springbus;
 
-import javafx.beans.binding.ListExpression;
-import org.testng.collections.Lists;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 //给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
@@ -24,17 +24,25 @@ import java.util.concurrent.ConcurrentHashMap;
 //著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class LetterCombinations {
 
-    Map<String,List<String>> letterMap= null;
-    private  List<String>  newArrayList(String s) {
-        List<String> retList=new ArrayList<>();
-        for(char c :s.toCharArray()) {
-            retList.add(c+"");
+    Map<String, List<String>> letterMap = null;
+    LinkedList<String> retList = new LinkedList<>();
+    List<String> allList = new ArrayList<>();
+
+    public static void main(String[] args) {
+        List<String> r = new LetterCombinations().letterCombinations("999");
+        System.out.println(r);
+    }
+
+    private List<String> newArrayList(String s) {
+        List<String> retList = new ArrayList<>();
+        for (char c : s.toCharArray()) {
+            retList.add(c + "");
         }
         return retList;
     }
 
-    private  void initMap(){
-        if(letterMap==null) {
+    private void initMap() {
+        if (letterMap == null) {
             letterMap = new ConcurrentHashMap<>(16);
             letterMap.put("2", newArrayList("abc"));
             letterMap.put("3", newArrayList("def"));
@@ -47,25 +55,24 @@ public class LetterCombinations {
         }
 
     }
-    LinkedList<String> retList = new LinkedList<>();
-    List<String> allList = new ArrayList<>();
-    public void dfs(String digits,int i) {
 
-        if(i>digits.length()-1) {
+    public void dfs(String digits, int i) {
+
+        if (i > digits.length() - 1) {
             //System.out.println(retList);
-            String ret="";
-            for(int q=0;q<retList.size();q++){
-                ret+=retList.get(q);
+            String ret = "";
+            for (int q = 0; q < retList.size(); q++) {
+                ret += retList.get(q);
             }
             allList.add(ret);
-            return  ;
+            return;
         }
         String c = digits.charAt(i) + "";
         List<String> lettersList = letterMap.get(c + "");
-        for ( int index=0;index<lettersList.size();index++) {
+        for (int index = 0; index < lettersList.size(); index++) {
             String l = lettersList.get(index);
             retList.addLast(l);
-            dfs(digits,i+1);
+            dfs(digits, i + 1);
             retList.removeLast();
         }
 
@@ -75,11 +82,6 @@ public class LetterCombinations {
         initMap();
         dfs(digits, 0);
         return allList;
-    }
-
-    public static void main(String[] args) {
-        List<String> r = new LetterCombinations().letterCombinations("999");
-        System.out.println(r);
     }
 
 }

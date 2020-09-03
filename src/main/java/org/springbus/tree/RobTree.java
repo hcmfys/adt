@@ -5,7 +5,6 @@ import org.springbus.TreePrintUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TooManyListenersException;
 // 在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。
 // 这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“
 // 房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。
@@ -43,47 +42,45 @@ import java.util.TooManyListenersException;
 
 public class RobTree {
 
-  private int max = 0;
+    List<Integer> nodeList = new ArrayList<>();
+    private int max = 0;
 
-  List<Integer> nodeList = new ArrayList<>();
+    public static void main(String[] args) {
 
-  public void dfs(TreeNode root) {
-    if (root == null) {
-      return;
+        Integer arrList[] = {3, 9, 20, null, null, 15, 7};
+        arrList = new Integer[]{3, 4, 5, 1, 3, null, 1};
+        // arrList=new Integer[]{3,2,3,null,3,null,1};
+        arrList = new Integer[]{3, 2, 3, null, 3, null, 1};
+        //arrList = new Integer[] {1, 2, 3};
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        int l = new RobTree().rob(root);
+        System.out.println("max=" + l);
+        TreePrintUtil.pirnt(root);
     }
 
+    public void dfs(TreeNode root) {
+        if (root == null) {
+            return;
+        }
 
 
-    dfs(root.left);
-      nodeList.add(root.val);
-    dfs(root.right);
-  }
-
-  public int rob(TreeNode root) {
-    dfs(root);
-    int m1 = 0;
-    int m2 = 0;
-    System.out.println(root);
-    for (int i = 0; i < nodeList.size(); i++) {
-      if (i % 2 != 0) {
-        m1 += nodeList.get(i);
-      } else {
-        m2 += nodeList.get(i);
-      }
+        dfs(root.left);
+        nodeList.add(root.val);
+        dfs(root.right);
     }
-    return Math.max(m1, m2);
-  }
 
-  public static void main(String[] args) {
-
-    Integer arrList[] = {3, 9, 20, null, null, 15, 7};
-    arrList = new Integer[] {3, 4, 5, 1, 3, null, 1};
-    // arrList=new Integer[]{3,2,3,null,3,null,1};
-      arrList = new Integer[] { 3,2,3,null,3,null,1};
-    //arrList = new Integer[] {1, 2, 3};
-    TreeNode root = TreePrintUtil.makeTree(arrList);
-    int l = new RobTree().rob(root);
-    System.out.println("max=" + l);
-    TreePrintUtil.pirnt(root);
-  }
+    public int rob(TreeNode root) {
+        dfs(root);
+        int m1 = 0;
+        int m2 = 0;
+        System.out.println(root);
+        for (int i = 0; i < nodeList.size(); i++) {
+            if (i % 2 != 0) {
+                m1 += nodeList.get(i);
+            } else {
+                m2 += nodeList.get(i);
+            }
+        }
+        return Math.max(m1, m2);
+    }
 }

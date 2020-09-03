@@ -1,7 +1,5 @@
 package org.springbus;
 
-import org.omg.CORBA.INTERNAL;
-
 // 请你来实现一个 atoi 函数，使其能将字符串转换成整数。
 //
 // 首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
@@ -52,116 +50,114 @@ import org.omg.CORBA.INTERNAL;
 // 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
 public class MyAtoi {
 
-  public int myAtoi(String str) {
-    if(str==null){
-      return  0;
+    public static void main(String[] args) {
+        String x = "-91283472332";
+        x = "words and 987";
+        x = "   +012 3";
+        x = "   -42";
+        x = "+";
+        x = "2147483646";
+        x = "0-1";
+        x = "   4- 55";
+        x = "-5-";
+        x = "-13+8";
+        int reverse = new MyAtoi().myAtoi(x);
+        System.out.println("ret=" + reverse);
     }
 
-    int s = 0;
-    int e = 0;
-    int q = 0;
-    int size = str.length();
-    boolean isNeg = false;
-    boolean isPlus=false;
+    public int myAtoi(String str) {
+        if (str == null) {
+            return 0;
+        }
 
-    e = -1;
-    s = -1;
-    while (q < size) {
-      char c = str.charAt(q);
-      if (c == ' ' && s==-1) {
-        q++;
-        continue;
-      }
-      if (s == -1) {
-        s = q;
-      }
-      if (c == '-') {
+        int s = 0;
+        int e = 0;
+        int q = 0;
+        int size = str.length();
+        boolean isNeg = false;
+        boolean isPlus = false;
+
+        e = -1;
+        s = -1;
+        while (q < size) {
+            char c = str.charAt(q);
+            if (c == ' ' && s == -1) {
+                q++;
+                continue;
+            }
+            if (s == -1) {
+                s = q;
+            }
+            if (c == '-') {
+
+                if (isNeg) {
+                    break;
+                }
+
+                isNeg = true;
+                q++;
+                continue;
+            } else if (c == '+') {
+                if (isPlus) {
+                    break;
+                }
+                isPlus = true;
+                q++;
+                continue;
+            } else if (c >= '0' && c <= '9') {
+                if (s == -1) {
+                    s = q;
+                }
+                e = q;
+                q++;
+            } else {
+                break;
+            }
+        }
+        int ret = 0;
+
+
+        System.out.println("max=" + Integer.MIN_VALUE + "---> min=" + Integer.MAX_VALUE);
+        System.out.println("s=" + s + "  q=" + q + " s= -->" + str);
+
+        System.out.println("s=" + s + "  q=" + q + "  -->" + str.substring(s, e + 1));
+        int index = 0;
+        while (s != -1 && s <= e) {
+            char cc = str.charAt(s);
+            if (cc == '-' || cc == '+') {
+                if (index == 0) {
+                    index = 1;
+                    s++;
+                    isNeg = cc == '-';
+                    continue;
+                }
+                break;
+            }
+            if (index == 0) {
+                isNeg = cc == '-';
+            }
+            index++;
+            int c = cc - '0';
+            //System.out.println(c);
+
+            int min = (Integer.MAX_VALUE - c) / 10;
+            System.out.println(ret + "  min=" + min);
+
+            if (ret > min || ret < 0) {
+                if (isNeg) {
+                    return Integer.MIN_VALUE;
+                } else {
+                    return Integer.MAX_VALUE;
+                }
+            }
+            ret = 10 * ret + c;
+            s++;
+        }
 
         if (isNeg) {
-          break;
+            ret = -ret;
         }
 
-        isNeg = true;
-        q++;
-        continue;
-      }else if(c=='+' ){
-        if(isPlus){
-         break;
-        }
-        isPlus=true;
-        q++;
-        continue;
-      }
-      else if (c >= '0' && c <= '9') {
-        if (s == -1) {
-          s = q;
-        }
-        e = q;
-        q++;
-      } else {
-        break;
-      }
+        return ret;
     }
-    int ret = 0;
-
-
-
-    System.out.println("max="+  Integer.MIN_VALUE +"---> min="+ Integer.MAX_VALUE);
-    System.out.println("s="+s +"  q="+q +" s= -->"+str);
-
-    System.out.println("s="+s +"  q="+q +"  -->"+str.substring(s,e+1));
-    int index=0;
-    while ( s!=-1 && s <= e) {
-      char cc=str.charAt(s);
-      if (cc == '-' || cc == '+') {
-        if (index == 0) {
-          index = 1;
-          s++;
-          isNeg = cc == '-';
-          continue;
-        }
-        break;
-      }
-      if(index==0) {
-        isNeg=cc=='-';
-      }
-      index++;
-      int c = cc- '0';
-      //System.out.println(c);
-
-      int min=( Integer.MAX_VALUE-c )/10;
-      System.out.println(ret  +"  min=" +min);
-
-       if(ret>min || ret<0 ) {
-         if(isNeg) {
-           return Integer.MIN_VALUE;
-         }else{
-           return Integer.MAX_VALUE;
-         }
-       }
-      ret = 10 * ret + c;
-      s++;
-    }
-
-    if (isNeg) {
-      ret = -ret;
-    }
-
-    return ret;
-  }
-
-  public static void main(String[] args) {
-    String x = "-91283472332";
-    x="words and 987";
-    x="   +012 3";
-    x="   -42";
-    x="+";
-    x="2147483646";
-    x="0-1";
-    x="   4- 55";
-    x="-5-";
-    x="-13+8";
-    int reverse = new MyAtoi().myAtoi(x);
-    System.out.println("ret="+reverse);
-  }
 }

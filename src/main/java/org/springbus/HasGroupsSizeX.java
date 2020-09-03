@@ -1,10 +1,7 @@
 package org.springbus;
 
-import sun.security.krb5.internal.crypto.Des;
-
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 ///给定一副牌，每张牌上都写着一个整数。
@@ -55,14 +52,23 @@ import java.util.concurrent.ConcurrentHashMap;
 public class HasGroupsSizeX {
 
 
-    private  boolean isExists( Map<Integer,Integer> map, int minSize ) {
-        Iterator<Integer> v=map.values().iterator();
-        while( v.hasNext()){
-            if( v.next()  % minSize !=0) {
-                 return  false;
+    public static void main(String[] args) {
+        int a[] = new int[]{1, 1, 2, 2, 2, 2, 6};
+        a = new int[]{1, 1, 1, 2, 2, 2, 3, 3};
+        a = new int[]{1, 1};
+        //a=new int[] {1,1,2,2,2,2};
+        boolean ok = new HasGroupsSizeX().hasGroupsSizeX(a);
+        System.out.println(ok);
+    }
+
+    private boolean isExists(Map<Integer, Integer> map, int minSize) {
+        Iterator<Integer> v = map.values().iterator();
+        while (v.hasNext()) {
+            if (v.next() % minSize != 0) {
+                return false;
             }
         }
-        return  true;
+        return true;
     }
 
     public boolean hasGroupsSizeX(int[] deck) {
@@ -80,7 +86,7 @@ public class HasGroupsSizeX {
             }
         }
 
-        for (int i = minSize; i <=deck.length; i++) {
+        for (int i = minSize; i <= deck.length; i++) {
             boolean ret = isExists(map, i);
             if (ret) {
                 return ret;
@@ -90,15 +96,6 @@ public class HasGroupsSizeX {
         }
         return false;
 
-    }
-
-    public static void main(String[] args) {
-        int a[]=new int[]{1,1,2,2,2,2,6};
-        a=new int[]{1,1,1,2,2,2,3,3};
-        a= new int[]{1,1};
-        //a=new int[] {1,1,2,2,2,2};
-        boolean ok=new HasGroupsSizeX().hasGroupsSizeX(a);
-        System.out.println(ok );
     }
 
 }

@@ -12,6 +12,18 @@ public class PanCakeSort {
     // 记录反转操作序列
     private LinkedList<Integer> res = new LinkedList<>();
 
+    public static void main(String[] args) {
+        //int arr[] = {3, 2, 1, 4};
+        //List<Integer> res = new PanCakeSort().pancakeSort(arr);
+        //Arrays.stream(arr).forEach(System.out::print);
+        //System.out.println("");
+        // res.stream().forEach(System.out::println);
+        //System.out.println("");
+
+        String t = new PanCakeSort().multiply("999123456789", "123456789");
+        System.out.println(t);
+    }
+
     public List<Integer> pancakeSort(int[] cakes) {
         sort(cakes, cakes.length);
         return res;
@@ -47,7 +59,6 @@ public class PanCakeSort {
             j--;
         }
     }
-
 
     public int subArraySum(int[] nums, int k) {
         int n = nums.length;
@@ -99,18 +110,6 @@ public class PanCakeSort {
         }
 
         return str.length() == 0 ? "0" : str;
-    }
-
-    public static void main(String[] args) {
-        //int arr[] = {3, 2, 1, 4};
-        //List<Integer> res = new PanCakeSort().pancakeSort(arr);
-        //Arrays.stream(arr).forEach(System.out::print);
-        //System.out.println("");
-        // res.stream().forEach(System.out::println);
-        //System.out.println("");
-
-        String t = new PanCakeSort().multiply("999123456789", "123456789");
-        System.out.println(t);
     }
 
 

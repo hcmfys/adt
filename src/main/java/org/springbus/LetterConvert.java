@@ -1,10 +1,5 @@
 package org.springbus;
 
-import org.springbus.tree.RobTree;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
-import java.nio.channels.NonWritableChannelException;
-
 // 6. Z 字形变换
 // 难度
 // 中等
@@ -45,73 +40,72 @@ import java.nio.channels.NonWritableChannelException;
 // T     S     G
 public class LetterConvert {
 
-  public String convert(String s, int numRows) {
+    public static void main(String[] args) {
+        String t = "LEETCODEISHIRING";
+        t = "PAYPALISHIRING";
+        t = "A";
+        t = "ABC";
+        t = "hjouvsuyoypayulyeimuotehzriicfskpggkbbipzzrzucxamludfykgruowzgiooobppleqlwphapjnadqhdcnvwdtxjbmyppphauxnspusgdhiixqmbfjxjcvudjsuyibyebmwsiqyoygyxymzevypzvjegebeocfuftsxdixtigsieehkchzdflilrjqfnxztqrsvbspkyhsenbppkqtpddbuotbbqcwivrfxjujjddntgeiqvdgaijvwcyaubwewpjvygehljxepbpiwuqzdzubdubzvafspqpqwuzifwovyddwyvvburczmgyjgfdxvtnunneslsplwuiupfxlzbknhkwppanltcfirjcddsozoyvegurfwcsfmoxeqmrjowrghwlkobmeahkgccnaehhsveymqpxhlrnunyfdzrhbasjeuygafoubutpnimuwfjqsjxvkqdorxxvrwctdsneogvbpkxlpgdirbfcriqifpgynkrrefx";
 
-    if (s == null || s.equals("")) {
-      return "";
+
+        int row = 2;
+        row = 503;
+        String ret = new LetterConvert().convert(t, row);
+        System.out.println(ret);
     }
 
-    if (numRows == 1 || s.length()==1) {
-      return s;
-    }
-    int size = s.length();
-    int col=size;
-    String data[][] = new String[numRows][col];
-    for (int i = 0; i < numRows; i++) {
-      for (int j = 0; j < col; j++) {
-        data[i][j] = "X";
-      }
-    }
-    int q = 0;
-    for (int i = 0; i < col; i++) {
-      System.out.println(" i=" +i);
+    public String convert(String s, int numRows) {
 
-        for (int c = 0; c < numRows; c++) {
-          if (q < s.length() ) {
-            data[c][i] = s.substring(q, q + 1);
-            q++;
-          }
-
+        if (s == null || s.equals("")) {
+            return "";
         }
 
-        for (int c = 1; c <=numRows-2; c++) {
-          if (q < s.length() ) {
-            data[numRows - c - 1][i + c] = s.substring(q, q + 1);
-            q++;
-          }
-
+        if (numRows == 1 || s.length() == 1) {
+            return s;
         }
-        i += numRows - 2;
-      }
-
-
-
-    String rets = "";
-
-    for (int i = 0; i < numRows; i++) {
-      for (int j = 0; j < col; j++) {
-        if (data[i][j].equals("X")) {
-          data[i][j] = "";
+        int size = s.length();
+        int col = size;
+        String data[][] = new String[numRows][col];
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < col; j++) {
+                data[i][j] = "X";
+            }
         }
-        System.out.print(data[i][j] +"\t");
-        rets += data[i][j];
-      }
-      System.out.println("");
+        int q = 0;
+        for (int i = 0; i < col; i++) {
+            System.out.println(" i=" + i);
+
+            for (int c = 0; c < numRows; c++) {
+                if (q < s.length()) {
+                    data[c][i] = s.substring(q, q + 1);
+                    q++;
+                }
+
+            }
+
+            for (int c = 1; c <= numRows - 2; c++) {
+                if (q < s.length()) {
+                    data[numRows - c - 1][i + c] = s.substring(q, q + 1);
+                    q++;
+                }
+
+            }
+            i += numRows - 2;
+        }
+
+
+        String rets = "";
+
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j < col; j++) {
+                if (data[i][j].equals("X")) {
+                    data[i][j] = "";
+                }
+                System.out.print(data[i][j] + "\t");
+                rets += data[i][j];
+            }
+            System.out.println("");
+        }
+        return rets;
     }
-    return rets;
-  }
-
-  public static void main(String[] args) {
-    String t = "LEETCODEISHIRING";
-    t="PAYPALISHIRING";
-    t="A";
-    t="ABC";
-    t="hjouvsuyoypayulyeimuotehzriicfskpggkbbipzzrzucxamludfykgruowzgiooobppleqlwphapjnadqhdcnvwdtxjbmyppphauxnspusgdhiixqmbfjxjcvudjsuyibyebmwsiqyoygyxymzevypzvjegebeocfuftsxdixtigsieehkchzdflilrjqfnxztqrsvbspkyhsenbppkqtpddbuotbbqcwivrfxjujjddntgeiqvdgaijvwcyaubwewpjvygehljxepbpiwuqzdzubdubzvafspqpqwuzifwovyddwyvvburczmgyjgfdxvtnunneslsplwuiupfxlzbknhkwppanltcfirjcddsozoyvegurfwcsfmoxeqmrjowrghwlkobmeahkgccnaehhsveymqpxhlrnunyfdzrhbasjeuygafoubutpnimuwfjqsjxvkqdorxxvrwctdsneogvbpkxlpgdirbfcriqifpgynkrrefx" ;
-
-
-    int row = 2;
-    row=503;
-    String ret = new LetterConvert().convert(t, row);
-    System.out.println(ret);
-  }
 }

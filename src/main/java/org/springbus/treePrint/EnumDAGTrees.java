@@ -1,7 +1,6 @@
 package org.springbus.treePrint;
 
 
-
 import org.springbus.TreeNode;
 import org.springbus.treePrint.tech.vanyo.treePrinter.TreePrinter;
 
@@ -25,11 +24,11 @@ public class EnumDAGTrees {
             case TreeNode), and call the TreePrinter constructor, providing lambda functions to get the TreeNode's
             label as a String, and to get the left and right and right subtrees.
          */
-        TreePrinter<TreeNode> printer = new TreePrinter<>(n -> ""+n.val, n -> n.getLeft(), n -> n.getRight());
+        TreePrinter<TreeNode> printer = new TreePrinter<>(n -> "" + n.val, n -> n.getLeft(), n -> n.getRight());
 
         // this prints trees in rows across the page
         printer.setSquareBranches(true);
-        printer.printTrees(trees,120);
+        printer.printTrees(trees, 120);
 
     }
 

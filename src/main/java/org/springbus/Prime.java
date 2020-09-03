@@ -5,6 +5,8 @@ import java.util.Vector;
 
 public class Prime {
 
+    static int base = 1337;
+
     static int countPrimes(int n) {
         boolean[] isPrim = new boolean[n];
         Arrays.fill(isPrim, true);
@@ -58,7 +60,6 @@ public class Prime {
         return success;
     }
 
-
     static int countPrimesFinal(int n) {
         boolean[] isPrim = new boolean[n];
         Arrays.fill(isPrim, true);
@@ -73,9 +74,6 @@ public class Prime {
 
         return count;
     }
-
-
-    static int base = 1337;
 
     // 计算 a 的 k 次方然后与 base 求模的结果
     static int mypow(int a, int k) {
@@ -130,8 +128,8 @@ public class Prime {
         long tt3 = System.currentTimeMillis();
         System.out.println("t2=" + t2 + "  cost time=" + (tt3 - tt2));
 
-       int c= mypowFinal(100000000, 10000000);
-       System.out.println(c);
+        int c = mypowFinal(100000000, 10000000);
+        System.out.println(c);
 
     }
 }

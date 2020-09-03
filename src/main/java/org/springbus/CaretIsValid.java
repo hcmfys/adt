@@ -1,6 +1,5 @@
 package org.springbus;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Stack;
 
 // 20. 有效的括号
@@ -45,47 +44,47 @@ import java.util.Stack;
 // 输出: true
 public class CaretIsValid {
 
-  public boolean isValid(String s) {
-    if (s == null) {
-      return false;
-    }
-    if (s.equals("")) {
-      return false;
+    public static void main(String[] args) {
+        String s = "([)]";
+        s = "([)]";
+        s = "()[]{}";
+        s = "{[]}";
+        System.out.println("caret  is= " + new CaretIsValid().isValid(s));
     }
 
-    Stack<Character> stack = new Stack<>();
-    for (char c : s.toCharArray()) {
-      if (c == '{' || c == '[' || c=='(') {
-        stack.push(c);
-      } else {
-        if(stack.empty()) {
-          return  false;
+    public boolean isValid(String s) {
+        if (s == null) {
+            return false;
         }
-        Character p = stack.pop();
-        if(p=='{'  ) {
-          if(c!='}')  {
-            return  false;
-          }
-        } else if(p=='['  ) {
-          if(c!=']')  {
-            return  false;
-          }
-        }else if(p=='('  ) {
-          if(c!=')')  {
-            return  false;
-          }
+        if (s.equals("")) {
+            return false;
         }
 
-      }
-    }
-    return stack.empty();
-  }
+        Stack<Character> stack = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == '{' || c == '[' || c == '(') {
+                stack.push(c);
+            } else {
+                if (stack.empty()) {
+                    return false;
+                }
+                Character p = stack.pop();
+                if (p == '{') {
+                    if (c != '}') {
+                        return false;
+                    }
+                } else if (p == '[') {
+                    if (c != ']') {
+                        return false;
+                    }
+                } else if (p == '(') {
+                    if (c != ')') {
+                        return false;
+                    }
+                }
 
-  public static void main(String[] args) {
-    String s = "([)]";
-    s="([)]";
-    s="()[]{}";
-    s="{[]}";
-    System.out.println("caret  is= " + new CaretIsValid().isValid(s));
-  }
+            }
+        }
+        return stack.empty();
+    }
 }

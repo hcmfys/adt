@@ -1,16 +1,10 @@
 package org.springbus.tree;
 
-import com.sun.java.accessibility.util.AccessibilityListenerList;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
-import sun.awt.image.ImageWatched;
-import sun.reflect.generics.tree.Tree;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 public class LevelOrder {
 
@@ -64,7 +58,7 @@ public class LevelOrder {
             List<TreeNode> curNodeList = new ArrayList<>();
             for (int i = 0; i < allList.size(); i++) {
                 TreeNode node = allList.get(i);
-                if (node.left!= null) {
+                if (node.left != null) {
                     curNodeList.add(node.left);
                 }
                 if (node.right != null) {

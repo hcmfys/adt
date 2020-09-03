@@ -38,16 +38,28 @@ import java.util.List;
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
  * }
  */
 
 public class FlattenTree {
 
     List<TreeNode> lst = new ArrayList<>();
+    TreeNode last = null;
+
+    public static void main(String[] args) {
+
+        Integer arrList[] = {1, 2, 5, 3, 4, null, 6};
+        //arrList=new Integer[]{null};
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreePrintUtil.pirnt(root);
+        new FlattenTree().flatten(root);
+
+        TreePrintUtil.pirnt(root);
+    }
 
     public TreeNode flattenNode(TreeNode root) {
         TreeNode r = root;
@@ -72,8 +84,6 @@ public class FlattenTree {
         }
     }
 
-    TreeNode last = null;
-
     void flatten(TreeNode root) {
         if (root == null) return;
         flatten(root.right);
@@ -81,16 +91,5 @@ public class FlattenTree {
         root.right = last;
         root.left = null;
         last = root;
-    }
-
-    public static void main(String[] args) {
-
-        Integer arrList[] = {1, 2, 5, 3, 4, null, 6};
-        //arrList=new Integer[]{null};
-        TreeNode root = TreePrintUtil.makeTree(arrList);
-        TreePrintUtil.pirnt(root);
-        new FlattenTree().flatten(root);
-
-        TreePrintUtil.pirnt(root);
     }
 }

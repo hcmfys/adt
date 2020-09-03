@@ -37,10 +37,10 @@ package org.springbus.tree;
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
  * }
  */
 
@@ -58,25 +58,42 @@ import java.util.List;
  * boolean param_2 = obj.hasNext();
  */
 //leetcode submit region end(Prohibit modification and deletion)
-public  class BSTIterator {
+public class BSTIterator {
 
-    private int index;
     List<Integer> lst;
+    private int index;
 
     public BSTIterator(TreeNode root) {
         lst = new ArrayList<>();
         dfs(root);
     }
-    private  void dfs(TreeNode root){
 
-        if(root==null) {
+    public static void main(String[] args) {
+
+        Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
+        arrList = new Integer[]{9, 7, 15, 3, null, null, 20};
+
+
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreePrintUtil.pirnt(root);
+        BSTIterator obj = new BSTIterator(root);
+        while (obj.hasNext()) {
+            int param_1 = obj.next();
+            boolean param_2 = obj.hasNext();
+            System.out.println(param_1 + "--->" + param_2);
+        }
+    }
+
+    private void dfs(TreeNode root) {
+
+        if (root == null) {
             return;
         }
-        if(root.left!=null) {
+        if (root.left != null) {
             dfs(root.left);
         }
         lst.add(root.val);
-        if(root.right!=null) {
+        if (root.right != null) {
             dfs(root.right);
         }
 
@@ -96,23 +113,6 @@ public  class BSTIterator {
      * @return whether we have a next smallest number
      */
     public boolean hasNext() {
-        return index <=lst.size() - 1;
-    }
-
-
-    public static void main(String[] args) {
-
-        Integer arrList[] = {1, 9, 2, 3, 4, 5, 7, 9, 7, 4, 5, 9, 8, 5, 6, 5, 4, 0};
-        arrList = new Integer[]{9, 7, 15, 3, null, null, 20};
-
-
-        TreeNode root = TreePrintUtil.makeTree(arrList);
-        TreePrintUtil.pirnt(root);
-        BSTIterator obj = new BSTIterator(root);
-        while (obj.hasNext()) {
-            int param_1 = obj.next();
-            boolean param_2 = obj.hasNext();
-            System.out.println(param_1 + "--->" + param_2);
-        }
+        return index <= lst.size() - 1;
     }
 }

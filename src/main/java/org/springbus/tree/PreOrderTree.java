@@ -1,14 +1,8 @@
 package org.springbus.tree;
 
-import com.sun.xml.internal.ws.api.pipe.ServerTubeAssemblerContext;
-import jdk.internal.dynalink.beans.StaticClass;
-import org.springbus.Queue;
 import org.springbus.TreeNode;
 import org.springbus.TreePrintUtil;
 
-import javax.swing.text.TabableView;
-import java.nio.channels.NonReadableChannelException;
-import java.util.LinkedList;
 import java.util.Stack;
 
 public class PreOrderTree {

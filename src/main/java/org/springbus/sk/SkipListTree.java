@@ -4,48 +4,64 @@ import java.util.Random;
 
 public class SkipListTree<T> {
 
-  /**
-   * https://blog.csdn.net/bohu83/article/details/83654524
-   */
-  //  number of entries in the Skip List
-  public int n;
-  // height
-  public int h;
-  // 表头
-  private SkipListEntry head;
-  // 表尾
-  private SkipListEntry tail;
-  // 生成randomLevel用到的概率值
+    /**
+     * https://blog.csdn.net/bohu83/article/details/83654524
+     */
+    //  number of entries in the Skip List
+    public int n;
+    // height
+    public int h;
+    Random r;
+    // 表头
+    private SkipListEntry head;
+    // 生成randomLevel用到的概率值
+    // 表尾
+    private SkipListEntry tail;
 
-  Random r;
+    public SkipListTree() {
 
-  public SkipListTree() {
+        head = new SkipListEntry(Integer.MIN_VALUE, Integer.MIN_VALUE);
+        tail = new SkipListEntry(Integer.MAX_VALUE, Integer.MAX_VALUE);
+        head.right = tail;
+        tail.left = head;
+        n = 0;
+        h = 0;
+        r = new Random();
+        r.setSeed(System.currentTimeMillis());
+    }
 
-    head = new SkipListEntry(Integer.MIN_VALUE, Integer.MIN_VALUE);
-    tail = new SkipListEntry(Integer.MAX_VALUE, Integer.MAX_VALUE);
-    head.right = tail;
-    tail.left = head;
-    n = 0;
-    h = 0;
-    r = new Random();
-    r.setSeed(System.currentTimeMillis());
-  }
+    public static void main(String[] args) {
 
-  /**
-   * 查找
-   *
-   * @param key
-   * @return
-   */
-  public SkipListEntry findEntry(Integer key) {
-    SkipListEntry p;
+        SkipListTree l = new SkipListTree();
+        Random r = new Random();
+        int a[] = {100, 20, 330, 440, 98, 2330, 3339, 3339, 22220, 9033, 2283, 33382, 903, 2330, 3344, 22339, 33330, 9888, 47233, 22947, 23448};
+        r.setSeed(System.currentTimeMillis());
+        for (int i = 0; i < a.length; i++) {
+            int tmp = i + i * r.nextInt(100);
+            //System.out.println("add:" + tmp);
+            l.insert(a[i], tmp);
+            // l.printHorizontal();
+        }
+        l.printHorizontal();
+
+        System.out.println("over");
+    }
+
+    /**
+     * 查找
+     *
+     * @param key
+     * @return
+     */
+    public SkipListEntry findEntry(Integer key) {
+        SkipListEntry p;
 
     /* -----------------
     Start at "head"
     ----------------- */
-    p = head;
+        p = head;
 
-    while (true) {
+        while (true) {
       /* --------------------------------------------
         Search RIGHT until you find a LARGER entry
                E.g.: k = 34
@@ -55,57 +71,57 @@ public class SkipListTree<T> {
                                           p stops here
       p.right.key = 40
         -------------------------------------------- */
-      while (p.right.key != Integer.MAX_VALUE && p.right.key < key) {
-        p = p.right;
-        //    System.out.println(">>>> " + p.key);
-      }
+            while (p.right.key != Integer.MAX_VALUE && p.right.key < key) {
+                p = p.right;
+                //    System.out.println(">>>> " + p.key);
+            }
 
       /* ---------------------------------
       Go down one level if you can...
       --------------------------------- */
-      if (p.down != null) {
-        p = p.down;
-        // System.out.println("vvvv " + p.key);
-      } else{
-        // We reached the LOWEST level... Exit...
-        break;
-      }
+            if (p.down != null) {
+                p = p.down;
+                // System.out.println("vvvv " + p.key);
+            } else {
+                // We reached the LOWEST level... Exit...
+                break;
+            }
 
+        }
+
+        return (p); // p.key <= k
     }
 
-    return (p); // p.key <= k
-  }
+    public Integer get(int key) {
 
-  public Integer get(int key) {
+        SkipListEntry p;
 
-    SkipListEntry p;
+        p = findEntry(key);
 
-    p = findEntry(key);
-
-    if (p.key == key) {
-      return p.value;
-    } else {
-      return null;
-    }
-  }
-
-  public Integer insert(int key, int value) {
-    SkipListEntry p, q;
-
-    int i = 0;
-
-    // 查找适合插入的位子
-    p = findEntry(key);
-
-    // 如果跳跃表中存在含有key值的节点，则进行value的修改操作即可完成
-    if (p.key == key) {
-      Integer oldValue = p.value;
-      p.value = value;
-      return oldValue;
+        if (p.key == key) {
+            return p.value;
+        } else {
+            return null;
+        }
     }
 
-    // 如果跳跃表中不存在含有key值的节点，则进行新增操作
-    q = new SkipListEntry(key, value);
+    public Integer insert(int key, int value) {
+        SkipListEntry p, q;
+
+        int i = 0;
+
+        // 查找适合插入的位子
+        p = findEntry(key);
+
+        // 如果跳跃表中存在含有key值的节点，则进行value的修改操作即可完成
+        if (p.key == key) {
+            Integer oldValue = p.value;
+            p.value = value;
+            return oldValue;
+        }
+
+        // 如果跳跃表中不存在含有key值的节点，则进行新增操作
+        q = new SkipListEntry(key, value);
     /* --------------------------------------------------------------
     Insert q into the lowest level after SkipListEntry p:
                      p   put q here           p        q
@@ -113,29 +129,29 @@ public class SkipListTree<T> {
                 V     V                  V        V        V
     Lower level:    [ ] <------> [ ]    ==>  [ ] <--> [ ] <--> [ ]
     --------------------------------------------------------------- */
-    q.left = p;
-    q.right = p.right;
-    p.right.left = q;
-    p.right = q;
+        q.left = p;
+        q.right = p.right;
+        p.right.left = q;
+        p.right = q;
 
-    // 本层操作完毕，看更高层操作
-    // 抛硬币随机决定是否上层插入
-    while (r.nextDouble() > 1/Math.E /* Coin toss */) {
-      if (i >= h) // We reached the top level !!!
-      {
-        // Create a new empty TOP layer
-        addEmptyLevel();
-      }
+        // 本层操作完毕，看更高层操作
+        // 抛硬币随机决定是否上层插入
+        while (r.nextDouble() > 1 / Math.E /* Coin toss */) {
+            if (i >= h) // We reached the top level !!!
+            {
+                // Create a new empty TOP layer
+                addEmptyLevel();
+            }
       /* ------------------------------------
       Find first element with an UP-link
       ------------------------------------ */
-      while (p.up == null) {
-        p = p.left;
-      }
+            while (p.up == null) {
+                p = p.left;
+            }
       /* --------------------------------
       Make p point to this UP element
       -------------------------------- */
-      p = p.up;
+            p = p.up;
 
       /* ---------------------------------------------------
             Add one more (k,*) to the column
@@ -146,161 +162,144 @@ public class SkipListTree<T> {
               v
               q
       ---------------------------------------------------- */
-      SkipListEntry e;
-      // 这里需要注意的是除底层节点之外的节点对象是不需要value值的
-      e = new SkipListEntry(key, null);
+            SkipListEntry e;
+            // 这里需要注意的是除底层节点之外的节点对象是不需要value值的
+            e = new SkipListEntry(key, null);
       /* ---------------------------------------
       Initialize links of e
       --------------------------------------- */
-      e.left = p;
-      e.right = p.right;
-      e.down = q;
+            e.left = p;
+            e.right = p.right;
+            e.down = q;
       /* ---------------------------------------
       Change the neighboring links..
       --------------------------------------- */
-      p.right.left = e;
-      p.right = e;
-      q.up = e;
+            p.right.left = e;
+            p.right = e;
+            q.up = e;
 
-      // 把q执行新插入的节点：
-      q = e;
-      // level增加
-      i = i + 1;
-    }
-    n = n + 1; // 更新链表长度
-    return null;
-  }
-
-  private void addEmptyLevel() {
-
-    SkipListEntry p1, p2;
-
-    p1 = new SkipListEntry(Integer.MIN_VALUE, null);
-    p2 = new SkipListEntry(Integer.MAX_VALUE, null);
-
-    p1.right = p2;
-    p1.down = head;
-
-    p2.left = p1;
-    p2.down = tail;
-
-    head.up = p1;
-    tail.up = p2;
-
-    head = p1;
-    tail = p2;
-
-    h = h + 1;
-  }
-
-  public Integer remove(int key) {
-
-    SkipListEntry p, q;
-
-    p = findEntry(key);
-
-    if (!p.key.equals(key)) {
-      return null;
+            // 把q执行新插入的节点：
+            q = e;
+            // level增加
+            i = i + 1;
+        }
+        n = n + 1; // 更新链表长度
+        return null;
     }
 
-    Integer oldValue = p.value;
-    while (p != null) {
-      q = p.up;
-      p.left.right = p.right;
-      p.right.left = p.left;
-      p = q;
+    private void addEmptyLevel() {
+
+        SkipListEntry p1, p2;
+
+        p1 = new SkipListEntry(Integer.MIN_VALUE, null);
+        p2 = new SkipListEntry(Integer.MAX_VALUE, null);
+
+        p1.right = p2;
+        p1.down = head;
+
+        p2.left = p1;
+        p2.down = tail;
+
+        head.up = p1;
+        tail.up = p2;
+
+        head = p1;
+        tail = p2;
+
+        h = h + 1;
     }
 
-    return oldValue;
-  }
+    public Integer remove(int key) {
 
-  public void printHorizontal() {
-    String s = "";
-    int i;
+        SkipListEntry p, q;
 
-    SkipListEntry p;
+        p = findEntry(key);
+
+        if (!p.key.equals(key)) {
+            return null;
+        }
+
+        Integer oldValue = p.value;
+        while (p != null) {
+            q = p.up;
+            p.left.right = p.right;
+            p.right.left = p.left;
+            p = q;
+        }
+
+        return oldValue;
+    }
+
+    public void printHorizontal() {
+        String s = "";
+        int i;
+
+        SkipListEntry p;
 
     /* ----------------------------------
     Record the position of each entry
     ---------------------------------- */
-    p = head;
+        p = head;
 
-    while (p.down != null) {
-      p = p.down;
-    }
+        while (p.down != null) {
+            p = p.down;
+        }
 
-    i = 0;
-    while (p != null) {
-      p.pos = i++;
-      p = p.right;
-    }
+        i = 0;
+        while (p != null) {
+            p.pos = i++;
+            p = p.right;
+        }
 
     /* -------------------
     Print...
     ------------------- */
-    p = head;
+        p = head;
 
-    while (p != null) {
-      s = getOneRow(p);
-      System.out.println(s);
+        while (p != null) {
+            s = getOneRow(p);
+            System.out.println(s);
 
-      p = p.down;
-    }
-  }
-
-  public String getOneRow(SkipListEntry p) {
-    String s;
-    int a, b, i;
-
-    a = 0;
-
-    if(p.key==Integer.MIN_VALUE) {
-      s = "-∞" ;
-    }else{
-      s = "" + p.key;
+            p = p.down;
+        }
     }
 
-    p = p.right;
+    public String getOneRow(SkipListEntry p) {
+        String s;
+        int a, b, i;
 
-    while (p != null) {
-      SkipListEntry q;
+        a = 0;
 
-      q = p;
-      while (q.down != null) q = q.down;
-      b = q.pos;
+        if (p.key == Integer.MIN_VALUE) {
+            s = "-∞";
+        } else {
+            s = "" + p.key;
+        }
 
-      s = s + " <-";
+        p = p.right;
 
-      for (i = a + 1; i < b; i++) s = s + "--------";
+        while (p != null) {
+            SkipListEntry q;
 
-      if (p.key == Integer.MAX_VALUE) {
-        s = s + ">+∞" ;
-      }else{
-        s = s + "> " + p.key;
-      }
+            q = p;
+            while (q.down != null) q = q.down;
+            b = q.pos;
 
-      a = b;
+            s = s + " <-";
 
-      p = p.right;
+            for (i = a + 1; i < b; i++) s = s + "--------";
+
+            if (p.key == Integer.MAX_VALUE) {
+                s = s + ">+∞";
+            } else {
+                s = s + "> " + p.key;
+            }
+
+            a = b;
+
+            p = p.right;
+        }
+
+        return (s);
     }
-
-    return (s);
-  }
-
-  public static void main(String[] args) {
-
-    SkipListTree l = new SkipListTree();
-    Random r = new Random();
-    int a[]={100,20,330,440,98,2330,3339,3339,22220,9033,2283,33382,903,2330,3344,22339,33330,9888,47233,22947,23448};
-    r.setSeed(System.currentTimeMillis());
-    for (int i = 0; i < a.length; i++) {
-      int tmp =i+ i * r.nextInt(100);
-      //System.out.println("add:" + tmp);
-      l.insert(a[i], tmp);
-     // l.printHorizontal();
-    }
-    l.printHorizontal();
-
-    System.out.println("over");
-  }
 }

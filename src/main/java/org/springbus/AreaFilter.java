@@ -6,9 +6,28 @@ import java.util.List;
 public class AreaFilter {
 
 
-    class SelectionNode {
-        public int x;
-        public int y;
+    public List<SelectionNode> intervalIntersection(SelectionNode[] A, SelectionNode[] B) {
+        int i = 0;
+        int j = 0;
+        List<SelectionNode> res = new ArrayList();
+        while (i < A.length && j < B.length) {
+            int a1 = A[i].x;
+            int a2 = A[i].y;
+            int b1 = B[j].x;
+            int b2 = B[j].y;
+            if (b2 >= a1 && a2 >= b1) {
+                SelectionNode node = new SelectionNode();
+                node.x = Math.max(a1, b1);
+                node.y = Math.min(a2, b2);
+                res.add(node);
+            }
+            if (b2 < a2) {
+                j++;
+            } else {
+                i++;
+            }
+        }
+        return res;
     }
    /*
     # A, B 形如 [[0,2],[5,10]...]
@@ -30,30 +49,10 @@ public class AreaFilter {
 
     */
 
-   public List<SelectionNode> intervalIntersection(SelectionNode[] A, SelectionNode[] B) {
-       int i = 0;
-       int j = 0;
-       List<SelectionNode> res = new ArrayList();
-       while (i < A.length && j < B.length) {
-           int a1=A[i].x;
-           int a2=A[i].y;
-           int b1=B[j].x;
-           int b2=B[j].y;
-           if (b2>=a1 && a2>=b1) {
-               SelectionNode node = new SelectionNode();
-               node.x = Math.max(a1, b1);
-               node.y = Math.min(a2, b2);
-               res.add(node);
-           }
-           if (b2 <a2) {
-               j++;
-           }else{
-               i++;
-           }
-       }
-       return res;
-   }
-
+    class SelectionNode {
+        public int x;
+        public int y;
+    }
 
 
 }

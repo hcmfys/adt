@@ -8,6 +8,11 @@ import lombok.Data;
 public class TreeNode {
 
 
+    public TreeNode left;
+    public TreeNode right;
+    public TreeNode next;
+    public int val;
+    public TreeNode[] nodesList;
     /***
      * 1、路径：也就是已经做出的选择。
      * 2、选择列表：也就是你当前可以做的选择。
@@ -17,14 +22,12 @@ public class TreeNode {
      * 现在你先留着印象。
      */
 
-    public TreeNode(){}
-    public  TreeNode(int val) {
+    public TreeNode() {
+    }
+
+    public TreeNode(int val) {
         this.val = val;
     }
-    public TreeNode left;
-    public TreeNode right;
-    public TreeNode next;
-    public int val;
 
     public TreeNode(int value, TreeNode left, TreeNode right) {
         this.val = value;
@@ -32,12 +35,14 @@ public class TreeNode {
         this.right = right;
     }
 
-    @Override
-     public  String toString(){
-        return "["+this.val+"]";
-    }
-
     // convenience methods to build trees
+
+    public TreeNode(int _val, TreeNode _left, TreeNode _right, TreeNode _next) {
+        val = _val;
+        left = _left;
+        right = _right;
+        next = _next;
+    }
 
     public static TreeNode tree(int value, TreeNode left, TreeNode right) {
         return new TreeNode(value, left, right);
@@ -55,18 +60,9 @@ public class TreeNode {
         return new TreeNode(value, null, null);
     }
 
-
-    public  TreeNode[] nodesList;
-
-
-
-
-
-    public TreeNode(int _val, TreeNode _left, TreeNode _right, TreeNode _next) {
-        val = _val;
-        left = _left;
-        right = _right;
-        next = _next;
+    @Override
+    public String toString() {
+        return "[" + this.val + "]";
     }
 
 }

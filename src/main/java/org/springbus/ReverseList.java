@@ -13,36 +13,34 @@ package org.springbus;
 
 // leetcode submit region begin(Prohibit modification and deletion)
 
-import javax.swing.text.rtf.RTFEditorKit;
-
 /**
  * Definition for singly-linked list. public class ListNode { int val; ListNode next; ListNode(int
  * x) { val = x; } }
  */
 public class ReverseList {
-  public ListNode reverseList(ListNode head) {
-    if(head==null){
-      return null;
+    public static void main(String[] args) {
+        Integer arrList[] = {1, 2, 3, 4, 5, 6};
+        // arrList=new Integer[]{null};
+        ListNode root = TreePrintUtil.makeListNode(arrList);
+        ListNode node = new ReverseList().reverseList(root);
+        TreePrintUtil.printListNode(node);
     }
-    ListNode nextNode = head.next;
-    ListNode nextNextNode=null;
-    ListNode prev = head;
-    while (nextNode != null) {
-      nextNextNode=nextNode.next;
-      nextNode.next=prev;
-      prev=nextNode;
-      nextNode=nextNextNode;
-    }
-    head.next=null;
-    head=prev;
-    return head;
-  }
 
-  public static void main(String[] args) {
-    Integer arrList[] = {1, 2, 3, 4, 5, 6};
-    // arrList=new Integer[]{null};
-    ListNode root = TreePrintUtil.makeListNode(arrList);
-    ListNode node = new ReverseList().reverseList(root);
-    TreePrintUtil.printListNode(node);
-  }
+    public ListNode reverseList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode nextNode = head.next;
+        ListNode nextNextNode = null;
+        ListNode prev = head;
+        while (nextNode != null) {
+            nextNextNode = nextNode.next;
+            nextNode.next = prev;
+            prev = nextNode;
+            nextNode = nextNextNode;
+        }
+        head.next = null;
+        head = prev;
+        return head;
+    }
 }

@@ -34,18 +34,28 @@ import org.springbus.TreePrintUtil;
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
  * }
  */
 
 
-
 public class InvertTree {
 
-    public  void dfs(TreeNode root) {
+    public static void main(String[] args) {
+
+        Integer arrList[] = {4, 2, 7, 1, 3, 6, 9};
+        arrList = new Integer[]{1, 2};
+        TreeNode root = TreePrintUtil.makeTree(arrList);
+        TreePrintUtil.pirnt(root);
+        TreeNode l = new InvertTree().invertTree(root);
+        TreePrintUtil.pirnt(l);
+
+    }
+
+    public void dfs(TreeNode root) {
         if (root == null) {
             return;
         }
@@ -65,20 +75,10 @@ public class InvertTree {
         }
 
     }
+
     public TreeNode invertTree(TreeNode root) {
         dfs(root);
-        return  root;
-    }
-
-    public static void main(String[] args) {
-
-        Integer arrList[] = {4,2,7,1,3,6,9};
-        arrList=new Integer[]{1,2};
-        TreeNode root = TreePrintUtil.makeTree(arrList);
-        TreePrintUtil.pirnt(root);
-        TreeNode l = new InvertTree().invertTree(root);
-        TreePrintUtil.pirnt(l);
-
+        return root;
     }
 
 }

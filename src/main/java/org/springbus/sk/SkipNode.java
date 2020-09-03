@@ -36,8 +36,8 @@ public class SkipNode {
 
 
     @Override
-   public String toString(){
-        return  "["+this.data +"]";
+    public String toString() {
+        return "[" + this.data + "]";
     }
 
 }

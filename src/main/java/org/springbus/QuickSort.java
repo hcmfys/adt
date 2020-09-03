@@ -18,6 +18,7 @@ public class QuickSort {
      * 找出一个书来作为分段的标准
      * 把比标准小的移到左边，比标准大的移到右边
      * 让后继续递归分段比较
+     *
      * @param arr
      * @param start
      * @param end
@@ -27,12 +28,12 @@ public class QuickSort {
         if (start < end) {
             //找出一个标准来比较
             int stand = arr[start];
-            System.out.println("start="+start +" Len="+arr.length +"  end="+end +" 比较标准="+stand);
+            System.out.println("start=" + start + " Len=" + arr.length + "  end=" + end + " 比较标准=" + stand);
 
-            log(arr,start, end,"比较前");
+            log(arr, start, end, "比较前");
             int low = start;
             int high = end;
-            while(low<high) {
+            while (low < high) {
                 //从后往前一直比较，发现比较小的就调换位置
                 while (arr[high] >= stand && high > low) {
                     high--;
@@ -48,19 +49,19 @@ public class QuickSort {
             //最后会相等 low = high
             arr[low] = stand;
 
-            log(arr,start, end,"比较后");
+            log(arr, start, end, "比较后");
             System.out.println("=====");
             quickSort(arr, start, low);
             quickSort(arr, low + 1, end);
         }
     }
 
-    public  static  void log(int arr[], int start, int end, String msg) {
-        StringBuilder sb=new StringBuilder();
-        for(int i=start;i<end;i++) {
-            sb.append(arr[i ]+",");
+    public static void log(int arr[], int start, int end, String msg) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = start; i < end; i++) {
+            sb.append(arr[i] + ",");
         }
-        System.out.println("["+msg+"] arr=("+sb.toString()+")");
+        System.out.println("[" + msg + "] arr=(" + sb.toString() + ")");
 
     }
 }
