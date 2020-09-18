@@ -13,9 +13,12 @@ public class CareTest {
             careList.add(str);
         }else {
             if (l<n) {
+                System.out.println(" l " +l +"  r="+r);
                 care(l+1, r , str + "(", careList, n);
+                System.out.println("---"+ str );
             }
             if(r<l){
+                System.out.println(" --ll " +l +"  rr="+r);
                 care(l, r+1, str + ")", careList, n);
             }
         }
