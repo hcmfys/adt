@@ -11,8 +11,7 @@ public class CreateSetter {
 
         ClassPool pool = ClassPool.getDefault();
         CtClass cc = pool.makeClass("User");
-        pool.importPackage("java.lang.reflect.Method");
-        pool.importPackage("java.util.List");
+
         //创建属性
         CtField field01 = CtField.make("private int id;", cc);
         CtField field02 = CtField.make("private String name;", cc);
@@ -21,14 +20,16 @@ public class CreateSetter {
 
         //创建方法
         CtMethod method01 = CtMethod.make(" public String getName(){return name;} ", cc);
+        CtCodeClass.updateLocalVariable(method01.getMethodInfo(),0,"this", pool.get("User"));
+        CtCodeClass.updateLocalVariable(method01.getMethodInfo(),1,"ex",pool.get("java.lang.Exception"));
 
         CtMethod method02 = new CtMethod(CtClass.voidType, "setName",
                 new CtClass[]{}, cc);
         method02.addParameter(pool.get("java.lang.String"));
         method02.setBody("{this.name=$1;}");
-        //method02.addLocalVariable("name", pool.get("java.lang.String"));
-        // method02.addLocalVariable("ex",pool.get("java.lang.Exception"));
-        //method02.setGenericSignature("(Ljava/lang/String;)V");
+        CtCodeClass.updateLocalVariable(method02.getMethodInfo(),0,"this", pool.get("User"));
+        CtCodeClass.updateLocalVariable(method02.getMethodInfo(),1,"name", pool.get("java.lang.String"));
+        CtCodeClass.updateLocalVariable(method02.getMethodInfo(),2,"ex",pool.get("java.lang.Exception"));
 
         // method02.setBody("{ this.name=name;}");
 
