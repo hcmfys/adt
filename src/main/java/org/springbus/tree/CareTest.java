@@ -11,22 +11,24 @@ public class CareTest {
 
         if(r+l == 2 *n) {
             careList.add(str);
+            System.out.println("-------- end " +str  +" --------");
         }else {
             if (l<n) {
-                System.out.println(" l " +l +"  r="+r);
+                System.out.println("before  0 l= " +l +"  r="+r   + " str=" +  str + "(");
                 care(l+1, r , str + "(", careList, n);
-                System.out.println("---"+ str );
+                System.out.println("after 0 return -"+ str );
             }
             if(r<l){
-                System.out.println(" --ll " +l +"  rr="+r);
+                System.out.println("-before  1   ll= " +l +"  rr="+r);
                 care(l, r+1, str + ")", careList, n);
+                System.out.println("-after 1 return  -"+ str );
             }
         }
     }
 
     public  void care() {
         List<String > strList=new ArrayList<>();
-        care(0, 0, "", strList,3);
+        care(0, 0, "", strList,2);
         System.out.println(strList);
     }
 
